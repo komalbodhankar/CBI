@@ -1,7 +1,7 @@
 # CHICAGO BUSINESS INTELLIGENCE APPLICATION
 
 ### TECH STACK USED:
-1. **Golang** : To fetch Chicago Data Portal API's and store in postgres every 10 minutes.
+1. **Golang** : To fetch Chicago Data Portal API's and store in postgres every 10 minutes....
 2. **Postgres@14** : Used to store data of various API's and use them for time-series-analysis.
 3. **Flask** : Backend response modules are coded using flask web framework.
 4. **React** : Exploratory Data Analysis on UI using RNN, LSTM, and Google Maps APIs.
