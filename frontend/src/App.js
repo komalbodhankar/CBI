@@ -27,17 +27,17 @@ function App () {
             height: '100vh',
             overflow: 'auto'
           }}
-      >
+        >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            <Routes>
-              <Route path="/buildingPermit" element={<BuildingPermit />}></Route>
-              <Route path="/unEmployment" element={<unEmployment />}></Route>
-            </Routes>
-          </Grid>
+            <Grid container spacing={3}>
+              <Routes>
+                <Route path="/buildingPermit" element={<BuildingPermit />}></Route>
+                <Route path="/unEmployment" element={<unEmployment />}></Route>
+              </Routes>
+            </Grid>
           </Container>
-      </Box>
+        </Box>
       </Box>
     </BrowserRouter>
   )
