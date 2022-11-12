@@ -42,29 +42,34 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-const LeftNav = ({ open, toggleDrawer}) => {
+interface Props {
+  open: boolean;
+  toggleDrawer: () => void;
+}
+
+const LeftNav = ({ open, toggleDrawer}: Props) => {
   return (
     <Drawer variant="permanent" open={open}>
-        <Toolbar
+      <Toolbar
         sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            px: [1],
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          px: [1],
         }}
-        >
-        <IconButton onClick={toggleDrawer}>
-            <MenuIcon />
+      >
+        <IconButton onClick={() => toggleDrawer()}>
+          <MenuIcon />
         </IconButton>
-        </Toolbar>
-        <Divider />
-        <List component="nav">
+      </Toolbar>
+      <Divider />
+      <List component="nav">
         {mainListItems}
         <Divider sx={{ my: 1 }} />
         {secondaryListItems}
-        </List>
+      </List>
     </Drawer>
   );
-}
+};
 
 export default LeftNav;

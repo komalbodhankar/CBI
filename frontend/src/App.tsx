@@ -1,16 +1,16 @@
-import { Box, Container, Grid, Toolbar } from '@mui/material'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
-import BuildingPermit from './components/BuildingPermit'
-import UnEmployment from './components/UnEmployment'
-import LeftNav from './components/LeftNav'
-import * as React from 'react'
+import { Box, Container, Grid, Toolbar } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import BuildingPermit from './components/BuildingPermit';
+import LeftNav from './components/LeftNav';
+import * as React from 'react';
+import UnEmployment from './components/unEmployment';
 
 function App () {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   return (
 
@@ -41,7 +41,7 @@ function App () {
         </Box>
       </Box>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;
