@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BasicTable from './table/unemp';
 
-function unEmployment() {
+function UnEmployment() {
   const [data, setData] = useState([]);
 
   const getData = async() => {
@@ -22,4 +22,4 @@ function unEmployment() {
   )
 }
 
-export default unEmployment;
+export default UnEmployment;
