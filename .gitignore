@@ -3,4 +3,5 @@
 *.DS_Store
 backend/**/*.pyc
 *.pyc
+/node_modules
 
