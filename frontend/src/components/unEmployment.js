@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import BasicTable from './table/unemp';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import BasicTable from './table/table'
 
-function UnEmployment() {
-  const [data, setData] = useState([]);
+function UnEmployment () {
+  const [data, setData] = useState([])
 
-  const getData = async() => {
-    const data = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000));
+  const getData = async () => {
+    const data = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000))
     setData(data.data)
-    return data;
+    return data
   }
 
-  useEffect(()  => {
-    getData();
+  useEffect(() => {
+    getData()
   }, [])
 
   return (
@@ -22,4 +22,4 @@ function UnEmployment() {
   )
 }
 
-export default UnEmployment;
+export default UnEmployment

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import BasicTable from './table/permit';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import BasicTable from './table/table'
 
-function BuildingPermit() {
-  const [data, setData] = useState([]);
+function BuildingPermit () {
+  const [data, setData] = useState([])
 
-  const getData = async() => {
-    const data = await axios.get('http://127.0.0.1:5000/buildingPermit', setTimeout(4000));
+  const getData = async () => {
+    const data = await axios.get('http://127.0.0.1:5000/buildingPermit', setTimeout(4000))
     setData(data.data)
-    return data;
+    return data
   }
 
-  useEffect(()  => {
-    getData();
+  useEffect(() => {
+    getData()
   }, [])
 
   return (
@@ -22,4 +22,4 @@ function BuildingPermit() {
   )
 }
 
-export default BuildingPermit;
+export default BuildingPermit
