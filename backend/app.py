@@ -25,11 +25,17 @@ CORS(app)
 @app.route('/buildingPermit', methods=['GET'])
 def get_permits_data():
     cursor.execute("SELECT * from buildingpermits")
-    permitdata = cursor.fetchall()
-    return jsonify(permitdata)
+    data = cursor.fetchall()
+    return jsonify(data)
 
 @app.route('/unEmployment', methods=['GET'])
 def get_unemp_data():
     cursor.execute("SELECT * from unemployment_data")
-    unempdata = cursor.fetchall()
-    return jsonify(unempdata)
+    data = cursor.fetchall()
+    return jsonify(data)
+
+@app.route('/ccvi', methods=['GET'])
+def get_ccvi_data():
+    cursor.execute("SELECT * from ethnicitycovid19")
+    data = cursor.fetchall()
+    return jsonify(data)
