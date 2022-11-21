@@ -39,3 +39,9 @@ def get_ccvi_data():
     cursor.execute("SELECT * from ethnicitycovid19")
     data = cursor.fetchall()
     return jsonify(data)
+
+@app.route('/taxiTrips', methods=['GET'])
+def get_trips_data():
+    cursor.execute("SELECT * from taxitrips")
+    data = cursor.fetchall()
+    return jsonify(data)

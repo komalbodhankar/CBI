@@ -3,36 +3,36 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import PeopleIcon from '@mui/icons-material/People'
-import BarChartIcon from '@mui/icons-material/BarChart'
+import DomainAddIcon from '@mui/icons-material/DomainAdd'
+import BadgeIcon from '@mui/icons-material/Badge'
+import CoronavirusIcon from '@mui/icons-material/Coronavirus'
 import LayersIcon from '@mui/icons-material/Layers'
 import AssignmentIcon from '@mui/icons-material/Assignment'
+import LocalTaxiIcon from '@mui/icons-material/LocalTaxi'
 
 export const mainListItems = (
   <React.Fragment>
     <ListItemButton href='/buildingPermit'>
       <ListItemIcon>
-        <DashboardIcon />
+        <DomainAddIcon />
       </ListItemIcon>
       <ListItemText primary="Building Permits" />
     </ListItemButton>
     <ListItemButton href='/unEmployment'>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <BadgeIcon />
       </ListItemIcon>
       <ListItemText primary="UnEmployment" />
     </ListItemButton>
     <ListItemButton href='/ccvi'>
       <ListItemIcon>
-        <PeopleIcon />
+        <CoronavirusIcon />
       </ListItemIcon>
       <ListItemText primary="CCVI" />
     </ListItemButton>
     <ListItemButton href='/taxiTrips'>
       <ListItemIcon>
-        <BarChartIcon />
+        <LocalTaxiIcon />
       </ListItemIcon>
       <ListItemText primary="Taxi Trips" />
     </ListItemButton>

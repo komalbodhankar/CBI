@@ -17,7 +17,7 @@ function BuildingPermit () {
 
   return (
     <>
-      <BasicTable columns={['Id', 'Permit Id', 'Permit Type', '', 5, 6, 7, 8, 9, 10]} rows={data} />
+      <BasicTable columns={['Id', 'Build Permit id', 'Permit Id', 'Permit Type', 'Address', 'ZipCode', 'Latitude', 'Longitude', 'CreatedAt', 'UpdatedAt']} rows={data} />
     </>
   )
 }

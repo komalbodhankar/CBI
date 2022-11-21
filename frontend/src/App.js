@@ -4,6 +4,7 @@ import './App.css'
 import BuildingPermit from './components/BuildingPermit'
 import UnEmployment from './components/UnEmployment'
 import CCVI from './components/CCVI'
+import TaxiTrips from './components/TaxiTrips'
 import LeftNav from './components/LeftNav'
 import * as React from 'react'
 
@@ -37,6 +38,7 @@ function App () {
                 <Route path="/buildingPermit" element={<BuildingPermit />}></Route>
                 <Route path="/unEmployment" element={<UnEmployment />}></Route>
                 <Route path="/ccvi" element={<CCVI />}></Route>
+                <Route path="/taxiTrips" element={<TaxiTrips />}></Route>
               </Routes>
             </Grid>
           </Container>

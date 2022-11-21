@@ -17,7 +17,7 @@ function CCVI () {
 
   return (
     <>
-      <BasicTable columns={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]} rows={data} />
+      <BasicTable columns={['LabReportDate', 'CasesTotal', 'DeathsTotal', 'HospitalizationsTotal', 'CasesLatinx', 'CasesAsian', 'CasesBlack', 'CasesWhite', 'CasesOther', 'CasesUnknownRace', 'DeathsLatin', 'DeathsAsian', 'DeathsBlack', 'DeathsWhite', 'DeathsOther', 'DeathsUnknownRace', 'HospitalizationsLatin', 'HospitalizationsAsian', 'HospitalizationsBlack', 'HospitalizationsWhite']} rows={data} />
     </>
   )
 }
