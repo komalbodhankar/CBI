@@ -45,3 +45,15 @@ def get_trips_data():
     cursor.execute("SELECT * from taxitrips")
     data = cursor.fetchall()
     return jsonify(data)
+
+@app.route('/covid19', methods=['GET'])
+def get_covid19_daily_data():
+    cursor.execute("SELECT * from healthhumanservices")
+    data = cursor.fetchall()
+    return jsonify(data)
+
+@app.route('/covid19Zip', methods=['GET'])
+def get_covid19_weekly_data():
+    cursor.execute("SELECT * from covid19")
+    data = cursor.fetchall()
+    return jsonify(data)

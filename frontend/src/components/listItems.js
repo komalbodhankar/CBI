@@ -6,7 +6,6 @@ import ListSubheader from '@mui/material/ListSubheader'
 import DomainAddIcon from '@mui/icons-material/DomainAdd'
 import BadgeIcon from '@mui/icons-material/Badge'
 import CoronavirusIcon from '@mui/icons-material/Coronavirus'
-import LayersIcon from '@mui/icons-material/Layers'
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi'
 
@@ -36,11 +35,17 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Taxi Trips" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href='/covid19'>
       <ListItemIcon>
-        <LayersIcon />
+        <CoronavirusIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Covid-19-Total" />
+    </ListItemButton>
+    <ListItemButton href='/covid19Zip'>
+      <ListItemIcon>
+        <CoronavirusIcon />
+      </ListItemIcon>
+      <ListItemText primary="Covid-19-Zip" />
     </ListItemButton>
   </React.Fragment>
 )

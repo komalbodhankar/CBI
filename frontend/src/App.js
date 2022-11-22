@@ -5,6 +5,8 @@ import BuildingPermit from './components/BuildingPermit'
 import UnEmployment from './components/UnEmployment'
 import CCVI from './components/CCVI'
 import TaxiTrips from './components/TaxiTrips'
+import Covid19 from './components/covid19'
+import Covid19Zip from './components/Covid19Zip'
 import LeftNav from './components/LeftNav'
 import * as React from 'react'
 
@@ -39,6 +41,8 @@ function App () {
                 <Route path="/unEmployment" element={<UnEmployment />}></Route>
                 <Route path="/ccvi" element={<CCVI />}></Route>
                 <Route path="/taxiTrips" element={<TaxiTrips />}></Route>
+                <Route path="/covid19" element={<Covid19 />}></Route>
+                <Route path="/covid19Zip" element={<Covid19Zip />}></Route>
               </Routes>
             </Grid>
           </Container>
