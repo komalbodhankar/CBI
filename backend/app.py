@@ -18,7 +18,7 @@ except:
     print('Unable to connect to PostgreSQL connection URL...')
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 
@@ -28,11 +28,14 @@ def get_permits_data():
     data = cursor.fetchall()
     return jsonify(data)
 
+
 @app.route('/unEmployment', methods=['GET'])
 def get_unemp_data():
-    cursor.execute("SELECT * from unemployment_data")
-    data = cursor.fetchall()
-    return jsonify(data)
+    cursor.execute('select "areaCode", "areaName", "belowPoverty" from unemployment_data order by "belowPoverty" desc limit 5;')
+    top5_poverty = cursor.fetchall()
+    cursor.execute('select "areaCode", "areaName", "unempRate" from unemployment_data order by "unempRate" desc limit 5;')
+    top5_unemp = cursor.fetchall()  
+    return jsonify(top5_poverty,top5_unemp)
 
 @app.route('/ccvi', methods=['GET'])
 def get_ccvi_data():

@@ -3,21 +3,34 @@ import axios from 'axios'
 import BasicTable from './table/table'
 
 function UnEmployment () {
-  const [data, setData] = useState([])
+  const [data, setPoverty] = useState([])
+  const [unemp, setUnemp] = useState([])
+  // const [data, setUnemp] = useState([])
 
   const getData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000))
-    setData(data.data)
-    return data
+    setPoverty(data.data[0])
+    console.log(data)
+  }
+
+  const getUnemp = async () => {
+    const unemp = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000))
+    setUnemp(unemp.data[1])
+    console.log(unemp)
   }
 
   useEffect(() => {
-    getData()
+    const getAllData = async () => {
+      await getData()
+      await getUnemp()
+    }
+    getAllData()
   }, [])
 
   return (
     <>
-      <BasicTable columns={[1, 2, 3, 4, 5, 6, 7, 8]} rows={data} />
+      <BasicTable columns={['areaCode', 'areaName', 'belowPoverty']} rows={data} />
+      <BasicTable columns={['areaCode', 'areaName', 'unempRate']} rows={unemp} />
     </>
   )
 }

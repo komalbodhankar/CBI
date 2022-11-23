@@ -26,6 +26,9 @@ type BuildingPermit []struct {
 	Suffix           string `json:"suffix"`
 	Latitude         string `json:"latitude"`
 	Longitude        string `json:"longitude"`
+	TotalPaid        string `json:"subtotal_paid"`
+	TotalUnPaid      string `json:"subtotal_unpaid"`
+	TotalWaived      string `json:"subtotal_waived"`
 }
 
 type UnEmployment []struct {
@@ -120,6 +123,7 @@ func main() {
 		go taxiTrips(db)
 		go CoviddB(db)
 		go healthHumandB(db)
+		// go communityAreas()
 		time.Sleep(12 * time.Hour)
 	}
 
@@ -148,6 +152,9 @@ func buildingPermit(db *sql.DB) {
 		"zipcode" VARCHAR(255),
 		"latitude" DOUBLE PRECISION,
 		"longitude" DOUBLE PRECISION,
+		"totalpaid" DOUBLE PRECISION,
+		"totalunpaid" DOUBLE PRECISION,
+		"totalwaived" DOUBLE PRECISION,
 		"createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
 		"updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
 		PRIMARY KEY ("id")
@@ -182,6 +189,9 @@ func buildingPermit(db *sql.DB) {
 		streetName := buildPermitResponse[i].Street_name
 		suffix := buildPermitResponse[i].Suffix
 		address := streetNumber + " " + streetDirection + " " + streetName + " " + suffix
+		totalpaid := buildPermitResponse[i].TotalPaid
+		totalunpaid := buildPermitResponse[i].TotalUnPaid
+		totalwaived := buildPermitResponse[i].TotalWaived
 		createdAt := time.Now()
 		updatedAt := time.Now()
 
@@ -204,9 +214,9 @@ func buildingPermit(db *sql.DB) {
 		}
 		zipcode := geodecodedAddress.Postcode
 
-		insertQuerySQL := `insert into buildingpermits ("buildPermitId", "permitId", "permitType", "address", "zipcode", "latitude", "longitude", "createdAt", "updatedAt") values ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+		insertQuerySQL := `insert into buildingpermits ("buildPermitId", "permitId", "permitType", "address", "zipcode", "latitude", "longitude", "totalpaid", "totalunpaid", "totalwaived", "createdAt", "updatedAt") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`
 
-		_, err := db.Exec(insertQuerySQL, id, permit, permitType, address, zipcode, location.Lat, location.Lng, createdAt, updatedAt)
+		_, err := db.Exec(insertQuerySQL, id, permit, permitType, address, zipcode, location.Lat, location.Lng, totalpaid, totalunpaid, totalwaived, createdAt, updatedAt)
 
 		if err != nil {
 			panic(err)
