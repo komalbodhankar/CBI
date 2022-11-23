@@ -24,6 +24,16 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }
 }))
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0
+  }
+}))
+
 const rows = [
   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
@@ -37,7 +47,7 @@ export default function BasicTable ({ columns, rows }) {
   console.log(rows)
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
 

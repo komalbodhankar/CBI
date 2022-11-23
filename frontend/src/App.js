@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Toolbar } from '@mui/material'
+import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import BuildingPermit from './components/BuildingPermit'
@@ -33,18 +33,24 @@ function App () {
             overflow: 'auto'
           }}
         >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Routes>
-                <Route path="/buildingPermit" element={<BuildingPermit />}></Route>
-                <Route path="/unEmployment" element={<UnEmployment />}></Route>
-                <Route path="/ccvi" element={<CCVI />}></Route>
-                <Route path="/taxiTrips" element={<TaxiTrips />}></Route>
-                <Route path="/covid19" element={<Covid19 />}></Route>
-                <Route path="/covid19Zip" element={<Covid19Zip />}></Route>
-              </Routes>
-            </Grid>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                CBI
+              </Typography>
+              <Button color="inherit">Login</Button>
+            </Toolbar>
+          </AppBar>
+
+          <Container sx={{ mt: 4 }}>
+            <Routes>
+              <Route path="/buildingPermit" element={<BuildingPermit />}></Route>
+              <Route path="/unEmployment" element={<UnEmployment />}></Route>
+              <Route path="/ccvi" element={<CCVI />}></Route>
+              <Route path="/taxiTrips" element={<TaxiTrips />}></Route>
+              <Route path="/covid19" element={<Covid19 />}></Route>
+              <Route path="/covid19Zip" element={<Covid19Zip />}></Route>
+            </Routes>
           </Container>
         </Box>
       </Box>
