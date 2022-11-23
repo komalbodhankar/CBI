@@ -30,13 +30,13 @@ function UnEmployment () {
   return (
     <Grid container spacing={2}>
       <Grid BasicTable xs={5} mb={2} mr = {2}>
-        <BasicTable columns={['areaCode', 'areaName', 'belowPoverty']} rows={data} />
+        <BasicTable columns={['Area Code', 'Community Area', 'Below Poverty(%)']} rows={data} />
       </Grid>
       <Grid xs={5}>
           chart
       </Grid>
       <Grid BasicTable xs={5} mb = {2} mr = {2}>
-        <BasicTable columns={['areaCode', 'areaName', 'unempRate']} rows={unemp} />
+        <BasicTable columns={['Area Code', 'Community Area', 'UnEmployment(%)']} rows={unemp} />
       </Grid>
       <Grid xs={5}>
         chart
