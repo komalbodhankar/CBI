@@ -6,8 +6,9 @@ function BuildingPermit () {
   const [data, setData] = useState([])
 
   const getData = async () => {
-    const data = await axios.get('http://127.0.0.1:5000/buildingPermit', setTimeout(4000))
+    const data = await axios.get('http://127.0.0.1:5000/buildingPermit', setTimeout(4000), { crossOriginIsolated: true })
     setData(data.data)
+    console.log(data)
     return data
   }
 
