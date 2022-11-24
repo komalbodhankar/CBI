@@ -1,6 +1,9 @@
 from flask import Flask, jsonify
 import psycopg2
+from psycopg2 import Error
+from datetime import date
 from flask_cors import CORS
+import pandas as pd
 
 
 # Common connection for all functions
@@ -34,7 +37,7 @@ def get_unemp_data():
     cursor.execute('select "areaCode", "areaName", "belowPoverty" from unemployment_data order by "belowPoverty" desc limit 5;')
     top5_poverty = cursor.fetchall()
     cursor.execute('select "areaCode", "areaName", "unempRate" from unemployment_data order by "unempRate" desc limit 5;')
-    top5_unemp = cursor.fetchall()  
+    top5_unemp = cursor.fetchall()
     return jsonify(top5_poverty,top5_unemp)
 
 @app.route('/ccvi', methods=['GET'])
@@ -60,3 +63,4 @@ def get_covid19_weekly_data():
     cursor.execute("SELECT * from covid19")
     data = cursor.fetchall()
     return jsonify(data)
+
