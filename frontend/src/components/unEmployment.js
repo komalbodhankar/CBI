@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import BasicTable from './table/table'
 import { Grid } from '@mui/material'
+// import shape from '../results/chicago_map.png'
 
 function UnEmployment () {
   const [data, setPoverty] = useState([])
@@ -29,16 +30,17 @@ function UnEmployment () {
 
   return (
     <Grid container spacing={2}>
-      <Grid BasicTable xs={5} mb={2} mr = {2}>
+      <Grid item={ true } xs={5} mb={2} mr = {2}>
         <BasicTable columns={['Area Code', 'Community Area', 'Below Poverty(%)']} rows={data} />
       </Grid>
-      <Grid xs={5}>
-          chart
+      <Grid item={true} xs={5}>
+        chart
+        {/* <img src= {shape} height={320} width={550} /> */}
       </Grid>
-      <Grid BasicTable xs={5} mb = {2} mr = {2}>
+      <Grid item={ true } xs={5} mb = {2} mr = {2}>
         <BasicTable columns={['Area Code', 'Community Area', 'UnEmployment(%)']} rows={unemp} />
       </Grid>
-      <Grid xs={5}>
+      <Grid item={true} xs={5}>
         chart
       </Grid>
     </Grid>

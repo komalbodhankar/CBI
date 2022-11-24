@@ -41,12 +41,6 @@ def get_unemp_data():
     top5_poverty = cursor.fetchall()
     cursor.execute('select "areaCode", "areaName", "unempRate" from unemployment_data order by "unempRate" desc limit 5;')
     top5_unemp = cursor.fetchall()
-    shape = gpd.read_file('./datasets/Comm20Areas/CommAreas.shp')
-    # print(shape)
-    ax = shape.boundary.plot(figsize = (10,5))
-    matplotlib.use('SVG')
-    shape.plot(ax=ax, column="AREA_NUMBE", legend=False, cmap='OrRd')
-    plt.savefig("./datasets/results/chicago_map.png")
     return jsonify(top5_poverty,top5_unemp)
     
     
