@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import * as React from 'react'
-import { styled } from '@mui/material/styles'
-import MuiDrawer from '@mui/material/Drawer'
-import Toolbar from '@mui/material/Toolbar'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import { mainListItems, secondaryListItems } from './listItems'
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import MuiDrawer from '@mui/material/Drawer';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { mainListItems, secondaryListItems } from './listItems';
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -35,7 +35,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       })
     }
   })
-)
+);
 
 const LeftNav = ({ open, toggleDrawer }) => {
   return (
@@ -59,7 +59,7 @@ const LeftNav = ({ open, toggleDrawer }) => {
         {secondaryListItems}
       </List>
     </Drawer>
-  )
-}
+  );
+};
 
-export default LeftNav
+export default LeftNav;

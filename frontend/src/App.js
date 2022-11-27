@@ -1,20 +1,20 @@
-import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
-import BuildingPermit from './components/BuildingPermit'
-import UnEmployment from './components/UnEmployment'
-import CCVI from './components/CCVI'
-import TaxiTrips from './components/TaxiTrips'
-import Covid19 from './components/covid19'
-import Covid19Zip from './components/Covid19Zip'
-import LeftNav from './components/LeftNav'
-import * as React from 'react'
+import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import BuildingPermit from './components/BuildingPermit';
+import UnEmployment from './components/UnEmployment';
+import CCVI from './components/CCVI';
+import TaxiTrips from './components/TaxiTrips';
+import Covid19 from './components/covid19';
+import Covid19Zip from './components/Covid19Zip';
+import LeftNav from './components/LeftNav';
+import * as React from 'react';
 
 function App () {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   return (
 
@@ -55,7 +55,7 @@ function App () {
         </Box>
       </Box>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
