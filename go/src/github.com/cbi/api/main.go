@@ -106,7 +106,7 @@ func main() {
 
 	db, err := sql.Open("postgres", connStr)
 
-	fmt.Println("Successfully connected to chicago_business_intelligence")
+	fmt.Println("Successfully connected to go run --work main.go")
 
 	if err != nil {
 		panic(err)
@@ -195,10 +195,10 @@ func buildingPermit(db *sql.DB) {
 		updatedAt := time.Now()
 
 		location, _ := googleGeoCoder.Geocode(address)
-		fmt.Println("\nAddress to be converted to Latitute and Longitude: ", address)
+		// fmt.Println("\nAddress to be converted to Latitute and Longitude: ", address)
 
 		if location != nil {
-			fmt.Println("\nLatitude and Longitude are: ", location.Lat, location.Lng)
+			//fmt.Println("\nLatitude and Longitude are: ", location.Lat, location.Lng)
 		} else {
 			fmt.Println("\nDid not find Latitude and Longitude for below address: ", address)
 			continue
@@ -206,7 +206,7 @@ func buildingPermit(db *sql.DB) {
 
 		geodecodedAddress, _ := googleGeoCoder.ReverseGeocode(location.Lat, location.Lng)
 		if geodecodedAddress != nil {
-			fmt.Println("\nReverse Decoded Address using geocoder API is: ", geodecodedAddress.FormattedAddress)
+			//fmt.Println("\nReverse Decoded Address using geocoder API is: ", geodecodedAddress.FormattedAddress)
 		} else {
 			fmt.Println("\nDid not find an address for the provided latitude and Longitude: ", location.Lat, location.Lng)
 			continue
@@ -224,8 +224,8 @@ func buildingPermit(db *sql.DB) {
 	}
 
 }
-
 func unEmployment(db *sql.DB) {
+	fmt.Println("Employement Data")
 	dropTable := `drop table if exists unemployment_data`
 	_, err := db.Exec(dropTable)
 	if err != nil {
@@ -299,10 +299,11 @@ func unEmployment(db *sql.DB) {
 			panic(err)
 		}
 	}
-
+	fmt.Println("Employement Data Complete")
 }
 
 func taxiTrips(db *sql.DB) {
+	fmt.Println("Taxi Trips")
 	response, err := http.Get("https://data.cityofchicago.org/resource/wrvz-psew.json?$where=trip_start_timestamp%20between%20'2022-01-10T12:00:00'%20and%20'2022-01-11T14:00:00'")
 
 	if err != nil {
@@ -401,10 +402,11 @@ func taxiTrips(db *sql.DB) {
 			panic(err)
 		}
 	}
-
+	fmt.Println("Taxi Trips Complete")
 }
 
 func CoviddB(db *sql.DB) {
+	fmt.Println("Covid 19")
 	dropTable := `drop table if exists covid19`
 	_, err := db.Exec(dropTable)
 	if err != nil {
@@ -462,10 +464,11 @@ func CoviddB(db *sql.DB) {
 		}
 
 	}
-
+	fmt.Println("Covid Complete")
 }
 
 func healthHumandB(db *sql.DB) {
+	fmt.Println("Human Services")
 	dropTable := `drop table if exists healthhumanservices`
 	_, err := db.Exec(dropTable)
 	if err != nil {
@@ -526,10 +529,11 @@ func healthHumandB(db *sql.DB) {
 			panic(err)
 		}
 	}
-
+	fmt.Println("Human complete")
 }
 
 func covidCCVI(db *sql.DB) {
+	fmt.Println("CCVI")
 	response, err := http.Get("https://data.cityofchicago.org/resource/naz8-j4nc.json")
 	if err != nil {
 		fmt.Println(err.Error())
@@ -619,4 +623,5 @@ func covidCCVI(db *sql.DB) {
 			panic(err)
 		}
 	}
+	fmt.Println("CCVI Complete")
 }
