@@ -123,7 +123,6 @@ func main() {
 		go taxiTrips(db)
 		go CoviddB(db)
 		go healthHumandB(db)
-		// go communityAreas()
 		time.Sleep(12 * time.Hour)
 	}
 
@@ -236,7 +235,7 @@ func unEmployment(db *sql.DB) {
 	createTable := `create table if not exists "unemployment_data"
 	(
 		"id" SERIAL,
-		"areaCode" VARCHAR(255) UNIQUE,
+		"areaCode" BIGINT,
 		"areaName" VARCHAR(255),
 		"belowPoverty" DOUBLE PRECISION,
 		"perCapita" DOUBLE PRECISION,

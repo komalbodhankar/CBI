@@ -43,11 +43,11 @@ def get_unemp_data():
     top5_unemp = cursor.fetchall()
     return jsonify(top5_poverty,top5_unemp)
 
-@app.route('/getZip', methods = ['POST'])
+@app.route('/getZip', methods = ['GET'])
 def get_Zipcode():
-    cursor.execute('')
-    return
-    
+    cursor.execute('select * from (select "areaCode", "areaName", "belowPoverty" from unemployment_data order by "belowPoverty" desc limit 5) poverty left join (select "communityAreaNumber", "communityAreaZipCode" from community_area_zipcode) zipcode on (poverty."areaCode" = zipcode."communityAreaNumber");')
+    data = cursor.fetchall()
+    return data
     
 @app.route('/ccvi', methods=['GET'])
 def get_ccvi_data():

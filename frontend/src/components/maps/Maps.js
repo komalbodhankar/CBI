@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+  // useEffect,
+  // useState
+} from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
   width: '100%',
   height: '80vh'
 };
+
+// const positions = {
+//   const [positions, getPositions]
+
+// };
 
 export class MapContainer extends Component {
   render () {
