@@ -3,10 +3,8 @@ import psycopg2
 from psycopg2 import Error
 from datetime import date
 from flask_cors import CORS
-import pandas as pd
-import geopandas as gpd
-import matplotlib.pyplot as plt
 import matplotlib
+import googlemaps
 
 
 # Common connection for all functions
@@ -47,7 +45,16 @@ def get_unemp_data():
 def get_Zipcode():
     cursor.execute('select * from (select "areaCode", "areaName", "belowPoverty" from unemployment_data order by "belowPoverty" desc limit 5) poverty left join (select "communityAreaNumber", "communityAreaZipCode" from community_area_zipcode) zipcode on (poverty."areaCode" = zipcode."communityAreaNumber");')
     data = cursor.fetchall()
-    return data
+    address = ""
+    latlng = {}
+    address_array = []
+    gmaps_key = googlemaps.Client(key='AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY')
+    for i in range(len(data)):
+        address = data[i][1] + ", " + "Chicago, " + "Illinois, " + data[i][4]
+        geodecode = gmaps_key.geocode(address)
+        latlng = geodecode[0]["geometry"]["location"]
+        address_array.append(latlng)
+    return address_array
     
 @app.route('/ccvi', methods=['GET'])
 def get_ccvi_data():

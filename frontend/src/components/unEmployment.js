@@ -33,7 +33,7 @@ function UnEmployment () {
 
   return (
     <Grid container spacing={2}>
-      <Grid xs={6} spacing={2}>
+      <Grid item={true} xs={6}>
         <Grid item={ true } mb={2} mr = {2}>
           <BasicTable columns={['Area Code', 'Community Area', 'Below Poverty(%)']} rows={data} />
         </Grid>
@@ -41,7 +41,7 @@ function UnEmployment () {
           <BasicTable columns={['Area Code', 'Community Area', 'UnEmployment(%)']} rows={unemp} />
         </Grid>
       </Grid>
-      <Grid xs={6}>
+      <Grid item={true} xs={6}>
         <MapContainer />
       </Grid>
     </Grid>
