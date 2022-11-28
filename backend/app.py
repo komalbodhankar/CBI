@@ -42,6 +42,11 @@ def get_unemp_data():
     cursor.execute('select "areaCode", "areaName", "unempRate" from unemployment_data order by "unempRate" desc limit 5;')
     top5_unemp = cursor.fetchall()
     return jsonify(top5_poverty,top5_unemp)
+
+@app.route('/getZip', methods = ['POST'])
+def get_Zipcode():
+    cursor.execute('')
+    return
     
     
 @app.route('/ccvi', methods=['GET'])
