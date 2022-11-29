@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BasicTable from './table/table';
+import Pie from './charts/PieChart';
 
 function CCVI () {
   const [data, setData] = useState([]);
@@ -18,6 +19,7 @@ function CCVI () {
   return (
     <>
       <BasicTable columns={['LabReportDate', 'CasesTotal', 'DeathsTotal', 'HospitalizationsTotal', 'CasesLatinx', 'CasesAsian', 'CasesBlack', 'CasesWhite', 'CasesOther', 'CasesUnknownRace', 'DeathsLatin', 'DeathsAsian', 'DeathsBlack', 'DeathsWhite', 'DeathsOther', 'DeathsUnknownRace', 'HospitalizationsLatin', 'HospitalizationsAsian', 'HospitalizationsBlack', 'HospitalizationsWhite']} rows={data} />
+      <Pie></Pie>
     </>
   );
 }
