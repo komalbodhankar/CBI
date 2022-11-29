@@ -12,13 +12,13 @@ function UnEmployment () {
   const [unemp, setUnemp] = useState([]);
 
   const getData = async () => {
-    const data = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000), { crossOriginIsolated: true });
+    const data = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000));
     setPoverty(data.data[0]);
     console.log(data);
   };
 
   const getUnemp = async () => {
-    const unemp = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000), { crossOriginIsolated: true });
+    const unemp = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(6000));
     setUnemp(unemp.data[1]);
     console.log(unemp);
   };
