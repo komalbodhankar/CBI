@@ -21,7 +21,12 @@ const gradient = [
 class MapContainer extends React.Component {
   render () {
     return (
-      <div className='map-container'>
+      <div
+        style={{
+          position: 'relative',
+          height: 'calc(90vh - 20px)'
+        }}
+      >
         <Map
           google={this.props.google}
           className={'map'}

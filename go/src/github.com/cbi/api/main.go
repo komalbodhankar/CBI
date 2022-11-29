@@ -302,10 +302,9 @@ func unEmployment(db *sql.DB) {
 	fmt.Println("Employement Data Complete")
 }
 
-func taxiTrips(db *sql.DB) {
+func taxiTripsInitial(db *sql.DB) {
 	fmt.Println("Taxi Trips")
-	response, err := http.Get("https://data.cityofchicago.org/resource/wrvz-psew.json?$where=trip_start_timestamp%20between%20'2022-01-10T12:00:00'%20and%20'2022-01-11T14:00:00'")
-
+	response, err := http.Get("https://data.cityofchicago.org/resource/wrvz-psew.json'")
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
@@ -354,6 +353,108 @@ func taxiTrips(db *sql.DB) {
 		fmt.Println(er)
 		fmt.Println(res)
 	}
+	query := `INSERT INTO TaxiTrips(TripID ,
+		TripStartTimestamp ,
+		TripEndTimestamp ,
+		TripSeconds ,
+		TripMiles ,
+		PickupCommunityArea,
+		DropoffCommunityArea ,
+		Fare ,
+		Tips,
+		Tolls,
+		Extras ,
+		TripTotal,
+		PaymentType ,
+		Company ,
+		PickupCentroidLatitude ,
+		PickupCentroidLongitude,
+		DropoffCentroidLatitude,
+		DropoffCentroidLongitude,
+		createdAt,
+		updatedAt) 
+		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20);`
+	for i := 0; i < len(TaxiTripsResponse); i++ {
+		_, err = db.Exec(query,
+			TaxiTripsResponse[i].TripID,
+			TaxiTripsResponse[i].TripStartTimestamp,
+			TaxiTripsResponse[i].TripEndTimestamp,
+			TaxiTripsResponse[i].TripSeconds,
+			TaxiTripsResponse[i].TripMiles,
+			TaxiTripsResponse[i].PickupCommunityArea,
+			TaxiTripsResponse[i].DropoffCommunityArea,
+			TaxiTripsResponse[i].Fare,
+			TaxiTripsResponse[i].Tips,
+			TaxiTripsResponse[i].Tolls,
+			TaxiTripsResponse[i].Extras,
+			TaxiTripsResponse[i].TripTotal,
+			TaxiTripsResponse[i].PaymentType,
+			TaxiTripsResponse[i].Company,
+			TaxiTripsResponse[i].PickupCentroidLatitude,
+			TaxiTripsResponse[i].PickupCentroidLongitude,
+			TaxiTripsResponse[i].DropoffCentroidLatitude,
+			TaxiTripsResponse[i].DropoffCentroidLongitude,
+			time.Now(),
+			time.Now())
+		fmt.Println(i)
+		if err != nil {
+			panic(err)
+		}
+	}
+	fmt.Println("Taxi Trips Complete")
+}
+func taxiTrips(db *sql.DB) {
+	fmt.Println("Taxi Trips")
+	currentTime := time.Now().Format("2006-01-02") + "T" + time.Now().Format("15:04:05")
+	LastCallTime := time.Now().AddDate(0, 0, -31).Format("2006-01-02") + "T" + time.Now().AddDate(0, 0, -31).Format("15:04:05")
+	response, err := http.Get("https://data.cityofchicago.org/resource/wrvz-psew.json?$where=trip_start_timestamp%20between%20'" + LastCallTime + "'%20and%20'" + currentTime + "'")
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	dropTable := `drop table if exists TaxiTrips`
+
+	_, dropErr := db.Exec(dropTable)
+
+	if dropErr != nil {
+		panic(err)
+	}
+
+	fmt.Println("Connected!")
+	res, er := db.Exec("CREATE TABLE if not exists TaxiTrips " +
+		"(TripID VARCHAR ( 500 )," +
+		"TaxiID VARCHAR ( 500 )," +
+		"TripStartTimestamp VARCHAR ( 500 )," +
+		"TripEndTimestamp VARCHAR ( 500 )," +
+		"TripSeconds VARCHAR ( 500 )" +
+		",TripMiles VARCHAR ( 500 )" +
+		",PickupCommunityArea VARCHAR ( 500 )" +
+		",DropoffCommunityArea VARCHAR ( 500 )" +
+		",Fare VARCHAR ( 500 )" +
+		",Tips VARCHAR ( 500 )" +
+		",Tolls VARCHAR ( 500 )" +
+		",Extras VARCHAR ( 500 )" +
+		",TripTotal VARCHAR ( 500 )" +
+		",PaymentType VARCHAR ( 500 )" +
+		",Company VARCHAR ( 500 )" +
+		",PickupCentroidLatitude VARCHAR ( 500 )" +
+		",PickupCentroidLongitude VARCHAR ( 500 )" +
+		",DropoffCentroidLatitude  VARCHAR ( 500 )" +
+		",DropoffCentroidLongitude VARCHAR ( 500 )" +
+		",createdAt TIMESTAMP WITH TIME ZONE NOT NULL" +
+		",updatedAt TIMESTAMP WITH TIME ZONE NOT NULL);")
+	if er != nil {
+		fmt.Println(er)
+		fmt.Println(res)
+	}
+	var TaxiTripsResponse TaxiTrips
+	json.Unmarshal(body, &TaxiTripsResponse)
+	fmt.Println("Connected!")
 	query := `INSERT INTO TaxiTrips(TripID ,
 		TripStartTimestamp ,
 		TripEndTimestamp ,
