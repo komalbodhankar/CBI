@@ -62,7 +62,7 @@ const MapContainer = ({ google }) => {
     <div
       style={{
         position: 'relative',
-        height: 'calc(100vh - 20px)'
+        height: 'calc(92vh - 20px)'
       }}
     >
       <Map google={google} zoom={10} initialCenter={{ lat: 41.881832, lng: -87.623177 }}>
@@ -73,7 +73,7 @@ const MapContainer = ({ google }) => {
         })}
         {markersUnemp.map((markersUnemp, index) => {
           return (
-            <Marker icon={{ scaledSize: new google.maps.Size(32, 32) }} key={index} position={{ lat: markersUnemp.lat, lng: markersUnemp.lng }}/>
+            <Marker icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', scaledSize: new google.maps.Size(32, 32) }} key={index} position={{ lat: markersUnemp.lat, lng: markersUnemp.lng }}/>
           );
         })}
         {/* <InfoWindow
