@@ -62,7 +62,7 @@ const MapContainer = ({ google }) => {
     <div
       style={{
         position: 'relative',
-        height: 'calc(92vh - 20px)'
+        height: 'calc(100vh - 20px)'
       }}
     >
       <Map google={google} zoom={10} initialCenter={{ lat: 41.881832, lng: -87.623177 }}>
