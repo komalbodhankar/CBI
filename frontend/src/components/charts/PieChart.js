@@ -5,11 +5,11 @@ import PieChart, {
   Label,
   Connector,
   Size,
-  Export
+  Export,
 } from 'devextreme-react/pie-chart';
 
-const Pie = () => {
-
+const Pie = ({va}) => {
+  debugger;
     const areas = [{
         country: 'Russia',
         area: 12,
@@ -50,15 +50,15 @@ const Pie = () => {
     return (
       <PieChart
         id="pie"
-        dataSource={areas}
+        dataSource={va}
         palette="Bright"
-        title="Area of Countries"
+        title="Covid Effected"
         onPointClick={pointClickHandler}
         onLegendClick={legendClickHandler}
       >
         <Series
-          argumentField="country"
-          valueField="area"
+          argumentField="Race"
+          valueField="Affected"
         >
           <Label visible={true}>
             <Connector visible={true} width={1} />
