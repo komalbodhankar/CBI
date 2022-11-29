@@ -42,12 +42,12 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9)
 ];
 
-export default function BasicTable ({ background, columns, rows }) {
+export default function BasicTable ({ columns, rows }) {
   console.log(columns);
   console.log(rows);
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table aria-label="a dense table">
         <TableHead>
           <TableRow>
 

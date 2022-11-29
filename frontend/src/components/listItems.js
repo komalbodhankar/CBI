@@ -4,8 +4,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
-import BadgeIcon from '@mui/icons-material/Badge';
+import NoBackpackIcon from '@mui/icons-material/NoBackpack';
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
+import UpdateIcon from '@mui/icons-material/Update';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
 
@@ -19,7 +20,7 @@ export const mainListItems = (
     </ListItemButton>
     <ListItemButton href='/unEmployment'>
       <ListItemIcon>
-        <BadgeIcon />
+        <NoBackpackIcon />
       </ListItemIcon>
       <ListItemText primary="UnEmployment" />
     </ListItemButton>
@@ -43,7 +44,7 @@ export const mainListItems = (
     </ListItemButton>
     <ListItemButton href='/covid19Zip'>
       <ListItemIcon>
-        <CoronavirusIcon />
+        <UpdateIcon />
       </ListItemIcon>
       <ListItemText primary="Covid-19-Zip" />
     </ListItemButton>
@@ -53,25 +54,6 @@ export const mainListItems = (
 export const secondaryListItems = (
   <React.Fragment>
     <ListSubheader component="div" inset>
-      Saved reports
     </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
   </React.Fragment>
 );

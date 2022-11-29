@@ -34,7 +34,7 @@ CORS_ALLOW_ORIGINS = ["http://127.0.0.1:5000"]
 
 @app.route('/buildingPermit', methods=['GET'])
 def get_permits_data():
-    cursor.execute("SELECT * from buildingpermits")
+    cursor.execute("select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%';")
     data = cursor.fetchall()
     return jsonify(data)
 

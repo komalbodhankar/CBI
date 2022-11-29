@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BasicTable from './table/table';
+// import BasicTable from './table/table';
+import PaginationTable from './table/pagination_table'
 
 function BuildingPermit () {
   const [data, setData] = useState([]);
@@ -18,7 +19,7 @@ function BuildingPermit () {
 
   return (
     <>
-      <BasicTable columns={['Id', 'Build Permit id', 'Permit Id', 'Permit Type', 'Address', 'ZipCode', 'Latitude', 'Longitude', 'CreatedAt', 'UpdatedAt']} rows={data} />
+      <PaginationTable columns={['Id', 'Build Id', 'Permit Id', 'Permit Type', 'Address', 'ZipCode', 'Latitude', 'Longitude', 'Paid-Total', 'Unpaid-Total', 'Waived-Total', 'CreatedAt', 'UpdatedAt']} rows={data} />
     </>
   );
 }

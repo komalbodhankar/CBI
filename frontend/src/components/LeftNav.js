@@ -10,10 +10,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { mainListItems, secondaryListItems } from './listItems';
 
 const drawerWidth = 240;
-
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
