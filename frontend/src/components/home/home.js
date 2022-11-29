@@ -52,13 +52,12 @@ const DashBoard = () => {
     {
       header: 'Emergency Business Loans',
       info: 'The “little guys”, small businesses, have trouble' +
-          'competing with the big players like Amazon and Walmart for warehouse ' +
+          ' competing with the big players like Amazon and Walmart for warehouse ' +
           'spaces. To help small business, a new program has been piloted with the ' +
-          'name "Illinois Small Business Emergency Loan Fund Delta" to offer small' +
-          'businesses low interest loans of up to $250,000 for those applicants with' +
-          'PERMIT_TYPE of PERMIT - NEW CONSTRUCTION in the zip code that has the' +
-          'lowest count of applications and PER ' +
-          'CAPITA INCOME is less than 30,000. Both,' +
+          'name "Illinois Small Business Emergency Loan Fund Delta" to offer small ' +
+          'businesses low interest loans of up to $250,000 for those applicants which fall under ' +
+          'the regions of lowest count of applications for New Construction and Per-capita-income ' +
+          'less than 30,000. Both,' +
           'building permits and unemployment are used for this report.',
       image: Loan
     }
@@ -82,8 +81,8 @@ const DashBoard = () => {
           </Typography>
         </Container>
       </Box>
-      <Container sx={{ py: 8 }} maxWidth="md">
-        <Grid container spacing={4}>
+      <Container sx={{ py: 8 }} maxWidth="lr">
+        <Grid container spacing={6}>
           {cards.map((card) => (
             <Grid item key={card.header} xs={12} sm={12} md={6}>
               <Card
