@@ -22,7 +22,9 @@ except:
     print('Unable to connect to PostgreSQL connection URL...')
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources = {r"/*": {"origins": "*"}})
+# logging.getLogger('flask_cors').level = logging.DEBUG
+CORS_ALLOW_ORIGINS = ["http://127.0.0.1:5000"] 
 
 
 
@@ -41,20 +43,35 @@ def get_unemp_data():
     top5_unemp = cursor.fetchall()
     return jsonify(top5_poverty,top5_unemp)
 
-@app.route('/getZip', methods = ['GET'])
-def get_Zipcode():
+@app.route('/getPoverty', methods = ['GET'])
+def get_address_Poverty():
     cursor.execute('select * from (select "areaCode", "areaName", "belowPoverty" from unemployment_data order by "belowPoverty" desc limit 5) poverty left join (select "communityAreaNumber", "communityAreaZipCode" from community_area_zipcode) zipcode on (poverty."areaCode" = zipcode."communityAreaNumber");')
-    data = cursor.fetchall()
-    address = ""
-    latlng = {}
-    address_array = []
+    poverty = cursor.fetchall()
+    poverty_address = ""
+    latlng_poverty = {}
+    poverty_array = []
     gmaps_key = googlemaps.Client(key='AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY')
-    for i in range(len(data)):
-        address = data[i][1] + ", " + "Chicago, " + "Illinois, " + data[i][4]
-        geodecode = gmaps_key.geocode(address)
-        latlng = geodecode[0]["geometry"]["location"]
-        address_array.append(latlng)
-    return address_array
+    for i in range(len(poverty)):
+        poverty_address = poverty[i][1] + ", " + "Chicago, " + "Illinois, " + poverty[i][4]
+        geodecode_poverty = gmaps_key.geocode(poverty_address)
+        latlng_poverty = geodecode_poverty[0]["geometry"]["location"]
+        poverty_array.append(latlng_poverty)
+    return jsonify(poverty_array)
+
+@app.route('/getUnemp', methods = ['GET'])
+def get_address_Unemp():
+    cursor.execute('select * from (select "areaCode", "areaName", "unempRate" from unemployment_data order by "unempRate" desc limit 5) poverty left join (select "communityAreaNumber", "communityAreaZipCode" from community_area_zipcode) zipcode on (poverty."areaCode" = zipcode."communityAreaNumber");')
+    unemp = cursor.fetchall()
+    unemp_address = ""
+    latlng_unemp = {}
+    unemp_array = []
+    gmaps_key = googlemaps.Client(key='AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY')
+    for i in range(len(unemp)):
+        unemp_address = unemp[i][1] + ", " + "Chicago, " + "Illinois, " + unemp[i][4]
+        geodecode_unemp = gmaps_key.geocode(unemp_address)
+        latlng_unemp = geodecode_unemp[0]["geometry"]["location"]
+        unemp_array.append(latlng_unemp)
+    return jsonify(unemp_array)
     
 @app.route('/ccvi', methods=['GET'])
 def get_ccvi_data():
