@@ -34,10 +34,15 @@ CORS_ALLOW_ORIGINS = ["http://127.0.0.1:5000"]
 
 @app.route('/buildingPermit', methods=['GET'])
 def get_permits_data():
-    cursor.execute("select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%';")
+    cursor.execute("select \"buildPermitId\", \"permitId\", \"permitType\", \"address\", \"zipcode\", \"areaName\", \"perCapita\", \"createdAt\", \"updatedAt\" from (select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%') permit left join (select \"areaCode\", \"areaName\", \"perCapita\" from unemployment_data) unemployment on (permit.\"communityarea\" = unemployment.\"areaCode\");")
     data = cursor.fetchall()
     return jsonify(data)
 
+@app.route('/buildingPermitChart', methods=['GET'])
+def get_permit_charts_data():
+    cursor.execute("select \"permitType\", \"zipcode\", \"perCapita\" from (select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%') permit left join (select \"areaCode\", \"areaName\", \"perCapita\" from unemployment_data) unemployment on (permit.\"communityarea\" = unemployment.\"areaCode\");")
+    data = cursor.fetchall()
+    return jsonify(data)
 
 @app.route('/unEmployment', methods=['GET'])
 def get_unemp_data():

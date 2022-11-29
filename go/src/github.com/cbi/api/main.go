@@ -27,6 +27,7 @@ type BuildingPermit []struct {
 	Suffix           string `json:"suffix"`
 	Latitude         string `json:"latitude"`
 	Longitude        string `json:"longitude"`
+	CommunityArea    string `json:"community_area"`
 	TotalPaid        string `json:"subtotal_paid"`
 	TotalUnPaid      string `json:"subtotal_unpaid"`
 	TotalWaived      string `json:"subtotal_waived"`
@@ -153,10 +154,10 @@ func main() {
 	for {
 		go buildingPermit(db)
 		go unEmployment(db)
-		go taxiTrips(db)
-		go CoviddB(db)
-		go covidCCVI(db)
-		go healthHumandB(db)
+		// go taxiTrips(db)
+		// go CoviddB(db)
+		// go covidCCVI(db)
+		// go healthHumandB(db)
 		time.Sleep(12 * time.Hour)
 	}
 
@@ -183,6 +184,7 @@ func buildingPermit(db *sql.DB) {
 		"permitType" VARCHAR(255), 
 		"address" VARCHAR(255),
 		"zipcode" VARCHAR(255),
+		"communityarea" BIGINT,
 		"latitude" DOUBLE PRECISION,
 		"longitude" DOUBLE PRECISION,
 		"totalpaid" DOUBLE PRECISION,
@@ -222,19 +224,24 @@ func buildingPermit(db *sql.DB) {
 		streetName := buildPermitResponse[i].Street_name
 		suffix := buildPermitResponse[i].Suffix
 		address := streetNumber + " " + streetDirection + " " + streetName + " " + suffix
+		communityarea := buildPermitResponse[i].CommunityArea
 		totalpaid := buildPermitResponse[i].TotalPaid
 		totalunpaid := buildPermitResponse[i].TotalUnPaid
 		totalwaived := buildPermitResponse[i].TotalWaived
 		createdAt := time.Now()
 		updatedAt := time.Now()
 
+		if communityarea == "" {
+			communityarea = "54"
+		}
+
 		location, _ := googleGeoCoder.Geocode(address)
 		// fmt.Println("\nAddress to be converted to Latitute and Longitude: ", address)
 
 		if location != nil {
-			//fmt.Println("\nLatitude and Longitude are: ", location.Lat, location.Lng)
+			// fmt.Println("\nLatitude and Longitude are: ", location.Lat, location.Lng)
 		} else {
-			fmt.Println("\nDid not find Latitude and Longitude for below address: ", address)
+			// fmt.Println("\nDid not find Latitude and Longitude for below address: ", address)
 			continue
 		}
 
@@ -247,13 +254,14 @@ func buildingPermit(db *sql.DB) {
 		}
 		zipcode := geodecodedAddress.Postcode
 
-		insertQuerySQL := `insert into buildingpermits ("buildPermitId", "permitId", "permitType", "address", "zipcode", "latitude", "longitude", "totalpaid", "totalunpaid", "totalwaived", "createdAt", "updatedAt") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`
+		insertQuerySQL := `insert into buildingpermits ("buildPermitId", "permitId", "permitType", "address", "zipcode", "communityarea", "latitude", "longitude", "totalpaid", "totalunpaid", "totalwaived", "createdAt", "updatedAt") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`
 
-		_, err := db.Exec(insertQuerySQL, id, permit, permitType, address, zipcode, location.Lat, location.Lng, totalpaid, totalunpaid, totalwaived, createdAt, updatedAt)
+		_, err := db.Exec(insertQuerySQL, id, permit, permitType, address, zipcode, communityarea, location.Lat, location.Lng, totalpaid, totalunpaid, totalwaived, createdAt, updatedAt)
 
 		if err != nil {
 			panic(err)
 		}
+		fmt.Println("Building Permit Data Complete")
 
 	}
 

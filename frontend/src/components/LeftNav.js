@@ -50,7 +50,7 @@ const LeftNav = ({ open, toggleDrawer }) => {
         }}
       >
         <IconButton onClick={toggleDrawer}>
-          <MenuIcon />
+          <MenuIcon sx= {{ color: 'white' }}/>
         </IconButton>
       </Toolbar>
       <Divider />

@@ -83,17 +83,18 @@ TablePaginationActions.propTypes = {
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.success.light,
-      color: theme.palette.common.white
+      color: theme.palette.common.white,
+      fontSize: 11
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 10
+      fontSize: 11
     }
   }));
 
 export default function PaginationTable ({ columns, rows }) {
 
     const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(8);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -113,7 +114,7 @@ export default function PaginationTable ({ columns, rows }) {
     return (
       <TableContainer component={Paper}>
         <Table aria-label="custom pagination table">
-          <TableHead>
+          <TableHead style = {{ height: '10' }}>
             <TableRow>
   
               { columns.map((column) => {
@@ -141,7 +142,7 @@ export default function PaginationTable ({ columns, rows }) {
               </TableRow>
             ))}
             {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
+            <TableRow style={{ height: 40 * emptyRows }}>
               <TableCell colSpan={6} />
             </TableRow>
           )}
@@ -149,7 +150,7 @@ export default function PaginationTable ({ columns, rows }) {
           <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[8, 16, 32, { label: 'All', value: -1 }]}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}

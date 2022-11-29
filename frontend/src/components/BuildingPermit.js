@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 // import BasicTable from './table/table';
-import PaginationTable from './table/pagination_table'
+import PaginationTable from './table/pagination_table';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 function BuildingPermit () {
   const [data, setData] = useState([]);
@@ -19,7 +21,10 @@ function BuildingPermit () {
 
   return (
     <>
-      <PaginationTable columns={['Id', 'Build Id', 'Permit Id', 'Permit Type', 'Address', 'ZipCode', 'Latitude', 'Longitude', 'Paid-Total', 'Unpaid-Total', 'Waived-Total', 'CreatedAt', 'UpdatedAt']} rows={data} />
+      <Stack display="flex" justifyContent={"flex-end"} mb = {2} spacing={2} direction="row">
+        <Button variant="contained" color="primary" href="/buildingpermitChart">Chart</Button>
+      </Stack>
+      <PaginationTable columns={['Build Id', 'Permit Id', 'Permit Type', 'Address', 'ZipCode', 'Community', 'perCapita', 'CreatedAt', 'UpdatedAt']} rows={data} />
     </>
   );
 }
