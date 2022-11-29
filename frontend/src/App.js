@@ -2,12 +2,13 @@ import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/materi
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import BuildingPermit from './components/BuildingPermit';
-import UnEmployment from './components/unEmployment';
+import UnEmployment from './components/UnEmployment';
 import CCVI from './components/CCVI';
 import TaxiTrips from './components/TaxiTrips';
 import Covid19 from './components/covid19';
 import Covid19Zip from './components/Covid19Zip';
 import LeftNav from './components/LeftNav';
+import DashBoard from './components/home/home';
 import * as React from 'react';
 
 function App () {
@@ -44,6 +45,7 @@ function App () {
 
           <Container sx={{ mt: 4 }}>
             <Routes>
+              <Route path="/" element={<DashBoard />}></Route>
               <Route path="/buildingPermit" element={<BuildingPermit />}></Route>
               <Route path="/unEmployment" element={<UnEmployment />}></Route>
               <Route path="/ccvi" element={<CCVI />}></Route>
