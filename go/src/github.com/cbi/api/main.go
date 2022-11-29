@@ -155,6 +155,7 @@ func main() {
 		go unEmployment(db)
 		go taxiTrips(db)
 		go CoviddB(db)
+		go covidCCVI(db)
 		go healthHumandB(db)
 		time.Sleep(12 * time.Hour)
 	}
@@ -584,10 +585,10 @@ func CoviddB(db *sql.DB) {
 	createTable := `create table if not exists "covid19"
 	(
 		"ID" BIGINT,
-		"ZIPCode" CHAR(5),
-		"Tests" VARCHAR(255),
-		"PercentageTestedPositive" VARCHAR(255),
-		"Deaths" VARCHAR(255),
+		"ZIPCode" CHAR(10),
+		"Tests" VARCHAR(500),
+		"PercentageTestedPositive" VARCHAR(500),
+		"Deaths" VARCHAR(500),
 		"createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
 		"updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
 		PRIMARY KEY("ID")
@@ -765,6 +766,7 @@ func covidCCVI(db *sql.DB) {
 		createdAt,
 		updatedAt) 
 		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22);`
+	fmt.Println(len(CovidCCVIResponse))
 	for i := 0; i < len(CovidCCVIResponse); i++ {
 		_, err = db.Exec(query, CovidCCVIResponse[i].LabReportDate,
 			CovidCCVIResponse[i].CasesTotal,
@@ -785,7 +787,10 @@ func covidCCVI(db *sql.DB) {
 			CovidCCVIResponse[i].HospitalizationsLatinx,
 			CovidCCVIResponse[i].HospitalizationsAsianNonLatinx,
 			CovidCCVIResponse[i].HospitalizationsBlackNonLatinx,
-			CovidCCVIResponse[i].HospitalizationsWhiteNonLatinx)
+			CovidCCVIResponse[i].HospitalizationsWhiteNonLatinx,
+			time.Now(),
+			time.Now(),
+		)
 		fmt.Println(i)
 		if err != nil {
 			panic(err)
