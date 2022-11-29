@@ -4,10 +4,14 @@ from psycopg2 import Error
 from datetime import date
 from flask_cors import CORS
 import matplotlib
+import geopy
 import googlemaps
 
 
 # Common connection for all functions
+def get_zipcode(df, geolocator, lat_field, lon_field):
+    location = geolocator.reverse((df[lat_field], df[lon_field]))
+    return location.raw['address']['postcode']
 conn = None
 try:
     print('Connecting to PostgreSQL database...')

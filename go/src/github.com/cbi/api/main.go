@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -74,7 +75,39 @@ type healthHuman []struct {
 	DeathTotal            string `json:"deaths_total"`
 	HospitalizationsTotal string `json:"hospitalizations_total"`
 }
-
+type ReverseGeoCode struct {
+	Results []struct {
+		AddressComponents []struct {
+			LongName  string   `json:"long_name"`
+			ShortName string   `json:"short_name"`
+			Types     []string `json:"types"`
+		} `json:"address_components"`
+		FormattedAddress string `json:"formatted_address"`
+		Geometry         struct {
+			Location struct {
+				Lat float64 `json:"lat"`
+				Lng float64 `json:"lng"`
+			} `json:"location"`
+			LocationType string `json:"location_type"`
+			Viewport     struct {
+				Northeast struct {
+					Lat float64 `json:"lat"`
+					Lng float64 `json:"lng"`
+				} `json:"northeast"`
+				Southwest struct {
+					Lat float64 `json:"lat"`
+					Lng float64 `json:"lng"`
+				} `json:"southwest"`
+			} `json:"viewport"`
+		} `json:"geometry"`
+		PlaceID  string `json:"place_id"`
+		PlusCode struct {
+			CompoundCode string `json:"compound_code"`
+			GlobalCode   string `json:"global_code"`
+		} `json:"plus_code"`
+		Types []string `json:"types"`
+	} `json:"results"`
+}
 type EthnicityCovid19 []struct {
 	LabReportDate                        string `json:"lab_report_date"`
 	CasesTotal                           string `json:"cases_total"`
@@ -325,8 +358,6 @@ func taxiTripsInitial(db *sql.DB) {
 	if dropErr != nil {
 		panic(err)
 	}
-
-	fmt.Println("Connected!")
 	res, er := db.Exec("CREATE TABLE if not exists TaxiTrips " +
 		"(TripID VARCHAR ( 500 )," +
 		"TaxiID VARCHAR ( 500 )," +
@@ -446,6 +477,8 @@ func taxiTrips(db *sql.DB) {
 		",PickupCentroidLongitude VARCHAR ( 500 )" +
 		",DropoffCentroidLatitude  VARCHAR ( 500 )" +
 		",DropoffCentroidLongitude VARCHAR ( 500 )" +
+		",pzipcode  VARCHAR ( 500 )" +
+		",dzipcode VARCHAR ( 500 )" +
 		",createdAt TIMESTAMP WITH TIME ZONE NOT NULL" +
 		",updatedAt TIMESTAMP WITH TIME ZONE NOT NULL);")
 	if er != nil {
@@ -473,10 +506,43 @@ func taxiTrips(db *sql.DB) {
 		PickupCentroidLongitude,
 		DropoffCentroidLatitude,
 		DropoffCentroidLongitude,
+		pzipcode,
+		dzipcode,
 		createdAt,
 		updatedAt) 
-		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20);`
+		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22);`
 	for i := 0; i < len(TaxiTripsResponse); i++ {
+		googleGeoCoder := google.Geocoder("AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY")
+		pLat, err := strconv.ParseFloat(TaxiTripsResponse[i].PickupCentroidLatitude, 64)
+		if err != nil {
+			continue
+		}
+		pLg, err := strconv.ParseFloat(TaxiTripsResponse[i].PickupCentroidLongitude, 64)
+		if err != nil {
+			continue
+		}
+		geodecodedAddress, _ := googleGeoCoder.ReverseGeocode(pLat, pLg)
+		if geodecodedAddress != nil {
+			//fmt.Println("\nReverse Decoded Address using geocoder API is: ", geodecodedAddress.FormattedAddress)
+		} else {
+			continue
+		}
+		pzipcode := geodecodedAddress.Postcode
+		dLat, err := strconv.ParseFloat(TaxiTripsResponse[i].DropoffCentroidLatitude, 64)
+		if err != nil {
+			continue
+		}
+		dLg, err := strconv.ParseFloat(TaxiTripsResponse[i].DropoffCentroidLongitude, 64)
+		if err != nil {
+			continue
+		}
+		dgeodecodedAddress, _ := googleGeoCoder.ReverseGeocode(dLat, dLg)
+		if dgeodecodedAddress != nil {
+			//fmt.Println("\nReverse Decoded Address using geocoder API is: ", geodecodedAddress.FormattedAddress)
+		} else {
+			continue
+		}
+		dzipcode := dgeodecodedAddress.Postcode
 		_, err = db.Exec(query,
 			TaxiTripsResponse[i].TripID,
 			TaxiTripsResponse[i].TripStartTimestamp,
@@ -496,9 +562,10 @@ func taxiTrips(db *sql.DB) {
 			TaxiTripsResponse[i].PickupCentroidLongitude,
 			TaxiTripsResponse[i].DropoffCentroidLatitude,
 			TaxiTripsResponse[i].DropoffCentroidLongitude,
+			pzipcode,
+			dzipcode,
 			time.Now(),
 			time.Now())
-		fmt.Println(i)
 		if err != nil {
 			panic(err)
 		}
