@@ -9,8 +9,8 @@ function TaxiTrips () {
   const [heatMapData, setheatMapData] = useState([]);
   const getData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/taxiTrips', setTimeout(4000));
-    var temp = [];
-    for (var i = 0; i < data.data.length; i++) {
+    const temp = [];
+    for (let i = 0; i < data.data.length; i++) {
       if (isNaN(parseFloat(data.data[i][15])) || isNaN(parseFloat(data.data[i][16]))) {
         continue;
       }

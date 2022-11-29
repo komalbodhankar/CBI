@@ -575,6 +575,7 @@ func taxiTrips(db *sql.DB) {
 }
 
 func CoviddB(db *sql.DB) {
+	googleGeoCoder := google.Geocoder("AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY")
 	fmt.Println("Covid 19")
 	dropTable := `drop table if exists covid19`
 	_, err := db.Exec(dropTable)
@@ -585,10 +586,19 @@ func CoviddB(db *sql.DB) {
 	createTable := `create table if not exists "covid19"
 	(
 		"ID" BIGINT,
+<<<<<<< Updated upstream
 		"ZIPCode" CHAR(10),
 		"Tests" VARCHAR(500),
 		"PercentageTestedPositive" VARCHAR(500),
 		"Deaths" VARCHAR(500),
+=======
+		"ZIPCode" CHAR(5),
+		"Tests" VARCHAR(255),
+		"PercentageTestedPositive" VARCHAR(255),
+		"Deaths" VARCHAR(255),
+		"latitude" VARCHAR(255),
+		"longitude" VARCHAR(255),
+>>>>>>> Stashed changes
 		"createdAt" TIMESTAMP WITH TIME ZONE NOT NULL,
 		"updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL,
 		PRIMARY KEY("ID")
@@ -624,9 +634,13 @@ func CoviddB(db *sql.DB) {
 		createdAt := time.Now()
 		updatedAt := time.Now()
 
-		insertQuerySQL := `insert into covid19 ("ID", "ZIPCode", "Tests", "PercentageTestedPositive", "Deaths", "createdAt", "updatedAt") values ($1, $2, $3, $4, $5, $6, $7);`
+		location, _ := googleGeoCoder.Geocode(ZIPCode)
+		latitude := location.Lat
+		longitude := location.Lng
 
-		_, err := db.Exec(insertQuerySQL, ID, ZIPCode, Tests, PercentageTestedPositive, Deaths, createdAt, updatedAt)
+		insertQuerySQL := `insert into covid19 ("ID", "ZIPCode", "Tests", "PercentageTestedPositive", "Deaths", "latitude", "longitude", "createdAt", "updatedAt") values ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+
+		_, err := db.Exec(insertQuerySQL, ID, ZIPCode, Tests, PercentageTestedPositive, Deaths, latitude, longitude, createdAt, updatedAt)
 
 		if err != nil {
 			panic(err)
