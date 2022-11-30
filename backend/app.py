@@ -59,7 +59,8 @@ def get_permit_charts_data():
     df['Count'] = result
     df = df.drop_duplicates()
     final = df.nlargest(10, ['Count'])
-    return jsonify(final)
+    final_final = final.to_dict('records')
+    return jsonify(final_final)
 
 @app.route('/unEmployment', methods=['GET'])
 def get_unemp_data():
@@ -93,6 +94,7 @@ def get_address_Unemp():
     unemp_array = []
     gmaps_key = googlemaps.Client(key='AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY')
     for i in range(len(unemp)):
+        print(unemp)
         unemp_address = unemp[i][1] + ", " + "Chicago, " + "Illinois, " + unemp[i][4]
         geodecode_unemp = gmaps_key.geocode(unemp_address)
         latlng_unemp = geodecode_unemp[0]["geometry"]["location"]

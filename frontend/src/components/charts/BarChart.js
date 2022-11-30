@@ -2,8 +2,11 @@ import React from 'react';
 import {
     Chart, Series, CommonSeriesSettings, Format, Legend, Export, Size, ArgumentAxis, ZoomAndPan, ScrollBar, Label
 } from 'devextreme-react/chart';
+import { color } from '@mui/system';
 
 const BarChart = ({rows, columns, argumentField}) => {
+
+    console.log('inside bar chart', rows);
 
     const onPointClick = (e) => {
         e.target.select();
@@ -32,12 +35,13 @@ const BarChart = ({rows, columns, argumentField}) => {
                 <Series
                     key={item.value}
                     valueField={item.value}
+                    color="#ffaa66"
                     name={item.name} />
                 )
             }
             <Legend verticalAlignment="bottom" horizontalAlignment="center"></Legend>
             <ArgumentAxis 
-                defaultVisualRange={{length: 10}}
+                defaultVisualRange={{length: 100}}
             >
                 <Label
                     rotationAngle={45}
