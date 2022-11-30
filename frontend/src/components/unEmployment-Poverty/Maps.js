@@ -35,29 +35,6 @@ const MapContainer = ({ google }) => {
     getunempdata();
   }, []);
 
-  //   const [data, setPoverty] = useState([]);
-  //   const [unemp, setUnemp] = useState([]);
-
-  //   const getData = async () => {
-  //     const data = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000), { crossOriginIsolated: true });
-  //     setPoverty(data.data[0]);
-  //     console.log(data);
-  //   };
-
-  //   const getUnemp = async () => {
-  //     const unemp = await axios.get('http://127.0.0.1:5000/unEmployment', setTimeout(4000), { crossOriginIsolated: true });
-  //     setUnemp(unemp.data[1]);
-  //     console.log(unemp);
-  //   };
-
-  //   useEffect(() => {
-  //     const getAllData = async () => {
-  //       await getData();
-  //     //   await getUnemp();
-  //     };
-  //     getAllData();
-  //   }, []);
-
   return (
     <div
       style={{

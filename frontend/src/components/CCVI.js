@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Pie from './charts/PieChart';
 import LineChart from './charts/LineChart';
-const chartArgumentField = "date";
+const chartArgumentField = 'date';
 const chartColumns = [
-  { value: 'forecast_value', name:'Forecasted number of Cases'}
+  { value: 'forecast_value', name: 'Forecasted number of Cases' }
 ];
 function CCVI () {
+  // eslint-disable-next-line no-unused-vars
   const [data, setData] = useState([]);
   const [rows, setRows] = useState([]);
   const [covidCases, setCovidCases] = useState([]);
@@ -15,32 +16,32 @@ function CCVI () {
     const data = await axios.get('http://127.0.0.1:5000/ccvi', setTimeout(4000));
     setData(data.data);
     debugger;
-    var temp = [];
+    const temp = [];
     temp.push({ Race: 'Latin', Affected: parseInt(data.data[0][4]) });
     temp.push({ Race: 'Asian', Affected: parseInt(data.data[0][5]) });
     temp.push({ Race: 'Black', Affected: parseInt(data.data[0][6]) });
     temp.push({ Race: 'White', Affected: parseInt(data.data[0][7]) });
     temp.push({ Race: 'Other', Affected: parseInt(data.data[0][8]) });
     temp.push({ Race: 'Unknown', Affected: parseInt(data.data[0][9]) });
-    setCovidCases(temp);  
-    var temp2 = [];
+    setCovidCases(temp);
+    const temp2 = [];
     temp2.push({ Race: 'Latin', Affected: parseInt(data.data[0][10]) });
     temp2.push({ Race: 'Asian', Affected: parseInt(data.data[0][11]) });
     temp2.push({ Race: 'Black', Affected: parseInt(data.data[0][12]) });
     temp2.push({ Race: 'White', Affected: parseInt(data.data[0][13]) });
     temp2.push({ Race: 'Other', Affected: parseInt(data.data[0][14]) });
     temp2.push({ Race: 'Unknown', Affected: parseInt(data.data[0][15]) });
-    setCovidDeaths(temp2)
+    setCovidDeaths(temp2);
+    console.log(data);
     return data;
   };
-  const getForecastData = async () => {      
-
+  const getForecastData = async () => {
     fetch('/forecastCovid19').then(res => res.json())
-    .then(res => {   
+      .then(res => {
         setRows(res);
         return res;
-    })
-  }
+      });
+  };
   useEffect(() => {
     getData();
     getForecastData();
@@ -48,9 +49,9 @@ function CCVI () {
 
   return (
     <>
-    <Pie va={covidCases}></Pie>
-    <Pie va={covidDeaths}></Pie>
-    <LineChart reportType={'forecasted_data'} rows={rows} columns={chartColumns} argumentField={chartArgumentField}/>
+      <Pie va={covidCases}></Pie>
+      <Pie va={covidDeaths}></Pie>
+      <LineChart reportType={'forecasted_data'} rows={rows} columns={chartColumns} argumentField={chartArgumentField}/>
     </>
   );
 }
