@@ -5,6 +5,7 @@ import PaginationTable from './table/pagination_table';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import BarChart from './charts/BarChart';
+import MapContainer from './maps/Maps';
 
 function BuildingPermit () {
   const [data, setData] = useState([]);
@@ -48,11 +49,11 @@ function BuildingPermit () {
       <Stack display="flex" justifyContent={"flex-end"} mb = {2} spacing={2} direction="row">
         <Button variant="contained"  sx={{fontSize: 10}} color="primary" onClick={() => { setView('table')}}>Show Table</Button> 
         <Button variant="contained"  sx={{fontSize: 10}} color="primary" onClick={() => { setView('barChart')}}>Permit Count Chart</Button>
-        <Button variant="contained" sx={{fontSize: 10}} color="primary" href="/buildingpermitChart">Emergency Loan Chart</Button>
-        <Button variant="contained" sx={{fontSize: 10}} color="primary" href="/buildingpermitChart">Map</Button>
+        <Button variant="contained" sx={{fontSize: 10}} color="primary" onClick={() => { setView( 'map') }}>Emergency Loan Map</Button>
       </Stack>
       { view === 'table' && (<PaginationTable columns={columns} rows={data} />)}
       { view === 'barChart' && (<BarChart rows={dataSource} columns={chartColumns} argumentField={'ZipCode'} />)}
+      { view === 'map' && (<MapContainer />)}
     </>
   );
 }
