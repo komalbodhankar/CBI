@@ -58,7 +58,7 @@ def get_permit_charts_data():
         count = 0
     df['Count'] = result
     df = df.drop_duplicates()
-    final = df.nlargest(10, ['Count'])
+    final = df.nlargest(30, ['Count'])
     final_final = final.to_dict('records')
     return jsonify(final_final)
 
