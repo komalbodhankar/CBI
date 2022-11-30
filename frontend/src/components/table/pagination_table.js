@@ -1,12 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
-import { tableCellClasses } from '@mui/material/TableCell';
+import { styled, useTheme } from '@mui/material/styles';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
@@ -19,7 +17,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 
-function TablePaginationActions(props) {
+function TablePaginationActions (props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -77,23 +75,22 @@ TablePaginationActions.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.success.light,
-      color: theme.palette.common.white,
-      fontSize: 11
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 11
-    }
-  }));
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.success.light,
+    color: theme.palette.common.white,
+    fontSize: 11
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 11
+  }
+}));
 
 export default function PaginationTable ({ columns, rows }) {
-
-    const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(8);
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -109,45 +106,45 @@ export default function PaginationTable ({ columns, rows }) {
     setPage(0);
   };
 
-    console.log(columns);
-    console.log(rows);
-    return (
-      <TableContainer component={Paper}>
-        <Table aria-label="custom pagination table">
-          <TableHead style = {{ height: '10' }}>
-            <TableRow>
-  
-              { columns.map((column) => {
-                return (
-                  <StyledTableCell key={column}>{column}</StyledTableCell>
-                );
-              })}
-  
-            </TableRow>
-          </TableHead>
-          <TableBody>
+  console.log(columns);
+  console.log(rows);
+  return (
+    <TableContainer component={Paper}>
+      <Table aria-label="custom pagination table">
+        <TableHead style = {{ height: '10' }}>
+          <TableRow>
+
+            { columns.map((column) => {
+              return (
+                <StyledTableCell key={column}>{column}</StyledTableCell>
+              );
+            })}
+
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row, index) => (
-              <TableRow
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                { row.map((col) => {
-                  return (
-                    <StyledTableCell key={col} component="th" scope="row">{col}</StyledTableCell>
-                  );
-                })}
-              </TableRow>
-            ))}
-            {emptyRows > 0 && (
+            <TableRow
+              key={index}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              { row.map((col) => {
+                return (
+                  <StyledTableCell key={col} component="th" scope="row">{col}</StyledTableCell>
+                );
+              })}
+            </TableRow>
+          ))}
+          {emptyRows > 0 && (
             <TableRow style={{ height: 40 * emptyRows }}>
               <TableCell colSpan={6} />
             </TableRow>
           )}
-          </TableBody>
-          <TableFooter>
+        </TableBody>
+        <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[8, 16, 32, { label: 'All', value: -1 }]}
@@ -156,17 +153,17 @@ export default function PaginationTable ({ columns, rows }) {
               page={page}
               SelectProps={{
                 inputProps: {
-                  'aria-label': 'rows per page',
+                  'aria-label': 'rows per page'
                 },
-                native: true,
+                native: true
               }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
             />
-            </TableRow>
+          </TableRow>
         </TableFooter>
-        </Table>
-      </TableContainer>
-    );
-  }
+      </Table>
+    </TableContainer>
+  );
+}

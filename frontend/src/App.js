@@ -1,7 +1,7 @@
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import BuildingPermit from './components/BuildingPermit';
+import BuildingPermit from './components/building-permit/BuildingPermit';
 import UnEmployment from './components/UnEmployment';
 import CCVI from './components/CCVI';
 import TaxiTrips from './components/TaxiTrips';

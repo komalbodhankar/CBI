@@ -1,8 +1,8 @@
 {
-    "eslint.format.enable": false,
-    "eslint.enable": false,
+    "eslint.format.enable": true,
+    "eslint.enable": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": false
+        "source.fixAll.eslint": true
     },
     "files.exclude": {
         "*/node_modules": true
