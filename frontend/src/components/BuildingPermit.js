@@ -22,7 +22,9 @@ function BuildingPermit () {
   return (
     <>
       <Stack display="flex" justifyContent={"flex-end"} mb = {2} spacing={2} direction="row">
-        <Button variant="contained" color="primary" href="/buildingpermitChart">Chart</Button>
+        <Button variant="contained"  sx={{fontSize: 10}} color="primary" href="/permitCountChart">Permit Count Chart</Button>
+        <Button variant="contained" sx={{fontSize: 10}} color="primary" href="/buildingpermitChart">Emergency Loan Chart</Button>
+        <Button variant="contained" sx={{fontSize: 10}} color="primary" href="/buildingpermitChart">Map</Button>
       </Stack>
       <PaginationTable columns={['Build Id', 'Permit Id', 'Permit Type', 'Address', 'ZipCode', 'Community', 'perCapita', 'CreatedAt', 'UpdatedAt']} rows={data} />
     </>

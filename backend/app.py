@@ -6,6 +6,7 @@ from flask_cors import CORS
 import matplotlib
 import geopy
 import googlemaps
+import pandas as pd
 
 
 # Common connection for all functions
@@ -38,11 +39,27 @@ def get_permits_data():
     data = cursor.fetchall()
     return jsonify(data)
 
-@app.route('/buildingPermitChart', methods=['GET'])
+@app.route('/permitCountChart', methods=['GET'])
 def get_permit_charts_data():
     cursor.execute("select \"permitType\", \"zipcode\", \"perCapita\" from (select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%') permit left join (select \"areaCode\", \"areaName\", \"perCapita\" from unemployment_data) unemployment on (permit.\"communityarea\" = unemployment.\"areaCode\");")
     data = cursor.fetchall()
-    return jsonify(data)
+    df = pd.DataFrame(data)
+    df.columns = ['PermitType', 'ZipCode', 'PerCapita']
+    count = 0
+    result = []
+    i = 0
+    j = 0
+    j = i+1
+    for i in df.index:
+        for j in df.index:
+            if df['ZipCode'][i] == df['ZipCode'][j]:
+                count+=1
+        result.append(count)
+        count = 0
+    df['Count'] = result
+    df = df.drop_duplicates()
+    final = df.nlargest(10, ['Count'])
+    return jsonify(final)
 
 @app.route('/unEmployment', methods=['GET'])
 def get_unemp_data():
