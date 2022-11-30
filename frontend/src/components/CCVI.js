@@ -14,7 +14,6 @@ function CCVI () {
   const getData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/ccvi', setTimeout(4000));
     setData(data.data);
-    debugger;
     var temp = [];
     temp.push({ Race: 'Latin', Affected: parseInt(data.data[0][4]) });
     temp.push({ Race: 'Asian', Affected: parseInt(data.data[0][5]) });
@@ -35,15 +34,13 @@ function CCVI () {
   };
   const getForecastData = async () => {      
 
-    fetch('/forecastCovid19').then(res => res.json())
-    .then(res => {   
-        setRows(res);
-        return res;
-    })
+    const data = await axios.get('http://127.0.0.1:5000/forecastCovid19', setTimeout(4000));
+    debugger;
+    setRows(data.data);
   }
   useEffect(() => {
-    getData();
-    getForecastData();
+    getData().then(()=>
+    getForecastData());
   }, []);
 
   return (
