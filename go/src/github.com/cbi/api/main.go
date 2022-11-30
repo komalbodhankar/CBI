@@ -136,7 +136,7 @@ type EthnicityCovid19 []struct {
 
 func main() {
 
-	connStr := "user=postgres dbname=chicago_business_intelligence password=root host=localhost sslmode=disable"
+	connStr := "user=postgres dbname=chicago_business_intelligence password=root host=host.docker.internal sslmode=disable"
 
 	db, err := sql.Open("postgres", connStr)
 
@@ -169,12 +169,13 @@ func main() {
 }
 
 func buildingPermit(db *sql.DB) {
-	googleGeoCoder := google.Geocoder("AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY")
+	googleGeoCoder := google.Geocoder("AIzaSyBucdGUOMJfHSY03kHfO4RzmoLpIXVBg5Y")
 	dropTable := `drop table if exists buildingpermits`
 	_, err := db.Exec(dropTable)
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("Table dropped")
 
 	createTable := `create table if not exists "buildingpermits"
 	(
@@ -199,10 +200,13 @@ func buildingPermit(db *sql.DB) {
 	if createTableErr != nil {
 		panic(err)
 	}
+	fmt.Println("Table Created")
 
 	res, err := http.Get("https://data.cityofchicago.org/resource/building-permits.json")
 	if err != nil {
 		log.Fatal(err)
+	} else {
+		fmt.Println("Successfully read json")
 	}
 	defer res.Body.Close()
 
@@ -215,7 +219,6 @@ func buildingPermit(db *sql.DB) {
 	json.Unmarshal(body, &buildPermitResponse)
 
 	for i := range buildPermitResponse {
-
 		id := buildPermitResponse[i].Id
 		permit := buildPermitResponse[i].Permit
 		permitType := buildPermitResponse[i].Permit_type
@@ -247,7 +250,7 @@ func buildingPermit(db *sql.DB) {
 
 		geodecodedAddress, _ := googleGeoCoder.ReverseGeocode(location.Lat, location.Lng)
 		if geodecodedAddress != nil {
-			//fmt.Println("\nReverse Decoded Address using geocoder API is: ", geodecodedAddress.FormattedAddress)
+			fmt.Println("\nReverse Decoded Address using geocoder API is: ", geodecodedAddress.FormattedAddress)
 		} else {
 			fmt.Println("\nDid not find an address for the provided latitude and Longitude: ", location.Lat, location.Lng)
 			continue
@@ -521,7 +524,7 @@ func taxiTrips(db *sql.DB) {
 		updatedAt) 
 		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22);`
 	for i := 0; i < len(TaxiTripsResponse); i++ {
-		googleGeoCoder := google.Geocoder("AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY")
+		googleGeoCoder := google.Geocoder("AIzaSyBucdGUOMJfHSY03kHfO4RzmoLpIXVBg5Y")
 		pLat, err := strconv.ParseFloat(TaxiTripsResponse[i].PickupCentroidLatitude, 64)
 		if err != nil {
 			continue
@@ -583,7 +586,7 @@ func taxiTrips(db *sql.DB) {
 }
 
 func CoviddB(db *sql.DB) {
-	googleGeoCoder := google.Geocoder("AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY")
+	googleGeoCoder := google.Geocoder("AIzaSyBucdGUOMJfHSY03kHfO4RzmoLpIXVBg5Y")
 	fmt.Println("Covid 19")
 	dropTable := `drop table if exists covid19`
 	_, err := db.Exec(dropTable)

@@ -120,7 +120,7 @@ def get_address_Poverty():
                    'poverty."areaCode", poverty."areaName", poverty."belowPoverty", zipcode."communityAreaZipCode";')
     poverty = cursor.fetchall()
     poverty_array = []
-    gmaps_key = googlemaps.Client(key='AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY')
+    gmaps_key = googlemaps.Client(key='AIzaSyBucdGUOMJfHSY03kHfO4RzmoLpIXVBg5Y')
     for i in range(len(poverty)):
         poverty_address = poverty[i][1] + ", " + "Chicago, " + "Illinois, " + poverty[i][3]
         geodecode_poverty = gmaps_key.geocode(poverty_address)
@@ -146,7 +146,7 @@ def get_address_Unemp():
     unemp_address = ""
     latlng_unemp = {}
     unemp_array = []
-    gmaps_key = googlemaps.Client(key='AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY')
+    gmaps_key = googlemaps.Client(key='AIzaSyBucdGUOMJfHSY03kHfO4RzmoLpIXVBg5Y')
     for i in range(len(unemp)):
         print(unemp)
         unemp_address = unemp[i][1] + ", " + "Chicago, " + "Illinois, " + unemp[i][3]

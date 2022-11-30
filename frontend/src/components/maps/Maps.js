@@ -88,5 +88,5 @@ const MapContainer = ({ google }) => {
 };
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDr2sLloniItSejbFLVMShC9Kw0euajErY'
+  apiKey: 'AIzaSyBucdGUOMJfHSY03kHfO4RzmoLpIXVBg5Y'
 })(MapContainer);
