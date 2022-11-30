@@ -261,9 +261,9 @@ func buildingPermit(db *sql.DB) {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println("Building Permit Data Complete")
 
 	}
+	fmt.Println("Building Permit Data Complete")
 
 }
 func unEmployment(db *sql.DB) {
