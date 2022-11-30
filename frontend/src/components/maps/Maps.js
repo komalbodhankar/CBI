@@ -3,7 +3,7 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import axios from 'axios';
 // import greenpin from '../../images/green.svg';
 
-const MapContainer = ({ google, height }) => {
+const MapContainer = ({ google }) => {
   const [markersPoverty, setMarkersPoverty] = useState([]);
   const [markersUnemp, setMarkersUnemp] = useState([]);
 
@@ -62,7 +62,7 @@ const MapContainer = ({ google, height }) => {
     <div
       style={{
         position: 'relative',
-        height: height ? height : 'calc(92vh - 20px)'
+        height: 'calc(92vh - 20px)'
       }}
     >
       <Map google={google} zoom={10} initialCenter={{ lat: 41.881832, lng: -87.623177 }}>
