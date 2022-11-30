@@ -3,7 +3,9 @@ import psycopg2
 from flask_cors import CORS
 import googlemaps
 import pandas as pd
-
+from prophet import Prophet
+from flask import Flask
+from flask import make_response, request
 
 # Common connection for all functions
 def get_zipcode(df, geolocator, lat_field, lon_field):
@@ -68,7 +70,24 @@ def get_permit_charts_data():
     final_final = final.to_dict('records')
     return jsonify(final_final)
 
-
+@app.route('/forecastCovid19', methods=['GET'])
+def get_Covid19_Forecast():
+    cursor.execute(
+        "SELECT \"labreportdate\", \"casestotal\" FROM public.ethnicitycovid19;")
+    data = cursor.fetchall()
+    df = pd.DataFrame(data)
+    df[0]= pd.to_datetime(df[0])
+    df.columns = ['ds', 'y']
+    m = Prophet()        
+    m.fit(df)
+    future = m.make_future_dataframe(periods=10, freq='D')
+    forecast = m.predict(future)
+    forecast['ds'] = forecast['ds'].dt.strftime('%Y-%m-%d')
+    data = forecast[['ds','yhat']]
+    data = data.rename(columns={"ds":"date","yhat":"forecast_value"})
+    data['forecast_value'] = data['forecast_value'].round(decimals=0)  
+    data = data.to_json(orient='records') 
+    return make_response(data, 200)
 @app.route('/emergencyLoan', methods=['GET'])
 def get_emergency_loan_latlng():
     cursor.execute(

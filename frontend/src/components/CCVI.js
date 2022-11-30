@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BasicTable from './table/table';
 import Pie from './charts/PieChart';
-
+import LineChart from './charts/LineChart';
+const chartArgumentField = "date";
+const chartColumns = [
+  { value: 'forecast_value', name:'Forecasted number of Cases'}
+];
 function CCVI () {
   const [data, setData] = useState([]);
+  const [rows, setRows] = useState([]);
   const [covidCases, setCovidCases] = useState([]);
   const [covidDeaths, setCovidDeaths] = useState([]);
   const getData = async () => {
@@ -18,7 +22,7 @@ function CCVI () {
     temp.push({ Race: 'White', Affected: parseInt(data.data[0][7]) });
     temp.push({ Race: 'Other', Affected: parseInt(data.data[0][8]) });
     temp.push({ Race: 'Unknown', Affected: parseInt(data.data[0][9]) });
-    setCovidCases(temp)    
+    setCovidCases(temp);  
     var temp2 = [];
     temp2.push({ Race: 'Latin', Affected: parseInt(data.data[0][10]) });
     temp2.push({ Race: 'Asian', Affected: parseInt(data.data[0][11]) });
@@ -29,15 +33,23 @@ function CCVI () {
     setCovidDeaths(temp2)
     return data;
   };
+  const getForecastData = async () => {      
 
+    fetch('/forecastCovid19').then(res => res.json())
+    .then(res => {   
+        setRows(res);
+        return res;
+    })
   useEffect(() => {
     getData();
+    getForecastData();
   }, []);
 
   return (
     <>
     <Pie va={covidCases}></Pie>
     <Pie va={covidDeaths}></Pie>
+    <LineChart reportType={'forecasted_data'} rows={rows} columns={chartColumns} argumentField={chartArgumentField}/>
     </>
   );
 }
