@@ -3,8 +3,10 @@ import {
     Chart, Series, CommonSeriesSettings, Format, Legend, Export, Size, ArgumentAxis, ZoomAndPan, ScrollBar, Label
 } from 'devextreme-react/chart';
 import { color } from '@mui/system';
+import { useTheme } from '@mui/material';
 
 const BarChart = ({rows, columns, argumentField}) => {
+    const theme = useTheme();
 
     console.log('inside bar chart', rows);
 
@@ -35,7 +37,7 @@ const BarChart = ({rows, columns, argumentField}) => {
                 <Series
                     key={item.value}
                     valueField={item.value}
-                    color="#ffaa66"
+                    color={theme.palette.success.light}
                     name={item.name} />
                 )
             }
