@@ -6,3 +6,4 @@ backend/**/*.pyc
 /node_modules
 go/pkg/mod/cache/*
 backend/chicago_shape.py
+backend/test.py

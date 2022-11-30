@@ -41,10 +41,10 @@ def get_permits_data():
 
 @app.route('/permitCountChart', methods=['GET'])
 def get_permit_charts_data():
-    cursor.execute("select \"permitType\", \"zipcode\", \"perCapita\" from (select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%') permit left join (select \"areaCode\", \"areaName\", \"perCapita\" from unemployment_data) unemployment on (permit.\"communityarea\" = unemployment.\"areaCode\");")
+    cursor.execute("select \"permitType\", \"zipcode\", \"latitude\", \"longitude\",\"perCapita\" from (select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%') permit left join (select \"areaCode\", \"areaName\", \"perCapita\" from unemployment_data) unemployment on (permit.\"communityarea\" = unemployment.\"areaCode\");")
     data = cursor.fetchall()
     df = pd.DataFrame(data)
-    df.columns = ['PermitType', 'ZipCode', 'PerCapita']
+    df.columns = ['PermitType', 'ZipCode', 'Latitude', 'Longitude', 'PerCapita']
     count = 0
     result = []
     i = 0
@@ -61,6 +61,11 @@ def get_permit_charts_data():
     final = df.nlargest(10, ['Count'])
     final_final = final.to_dict('records')
     return jsonify(final_final)
+
+@app.route('/emergencyLoan', methods=['GET'])
+def get_emergency_loan_latlng():
+    cursor.execute("select \"permitType\", \"zipcode\", \"latitude\", \"longitude\", \"perCapita\" from (select * from buildingpermits where \"permitType\" like 'PERMIT - NEW CONSTRUCTION%') permit left join (select \"areaCode\", \"areaName\", \"perCapita\" from unemployment_data) unemployment on (permit.\"communityarea\" = unemployment.\"areaCode\");")
+    data = cursor.fetchall()
 
 @app.route('/unEmployment', methods=['GET'])
 def get_unemp_data():
