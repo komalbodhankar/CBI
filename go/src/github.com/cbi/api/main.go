@@ -154,10 +154,10 @@ func main() {
 	for {
 		go buildingPermit(db)
 		go unEmployment(db)
-		// go taxiTrips(db)
+		go taxiTrips(db)
 		// go CoviddB(db)
-		// go covidCCVI(db)
-		// go healthHumandB(db)
+		go covidCCVI(db)
+		go healthHumandB(db)
 		time.Sleep(12 * time.Hour)
 	}
 
