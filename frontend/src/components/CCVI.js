@@ -40,6 +40,7 @@ function CCVI () {
         setRows(res);
         return res;
     })
+  }
   useEffect(() => {
     getData();
     getForecastData();
