@@ -4,4 +4,7 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": false
     },
+    "files.exclude": {
+        "*/node_modules": true
+    }
 }
