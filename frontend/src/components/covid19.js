@@ -60,17 +60,10 @@ function Covid19 () {
   return (
     <>
       <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
-<<<<<<< HEAD
         <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} color="primary">Home</Button></Link>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('table'); }}>Show Table</Button>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('barChart'); }}>Covid Bar Chart</Button>
         {/* <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Emergency Loan Map</Button> */}
-=======
-        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}}>Home</Button></Link>
-        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('table'); }}>Show Table</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('barChart'); }}>Covid Bar Chart</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('map'); }}>Emergency Loan Map</Button>
->>>>>>> 0bd3a6306b2f7aa04bebca78c3cd64308efbda7d
       </Stack>
       { view === 'table' && (<PaginationTable columns={columns} rows={data} />)}
       { view === 'barChart' && (<BarChart rows={data} columns={chartColumns} argumentField={'date'} />)}
