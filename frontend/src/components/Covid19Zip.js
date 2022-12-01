@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import PaginationTable from './table/pagination_table';
 import BarChart from './charts/BarChart';
+import MapContainer from './maps/HeatMap';
 
 function Covid19Zip () {
   const [data, setData] = useState([]);
@@ -62,9 +63,15 @@ function Covid19Zip () {
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('table'); }}>Show Table</Button>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('barChart'); }}>Covid-19 Chart</Button>
         {/* <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Emergency Loan Map</Button> */}
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Pattern'); }}>Covid Heatmap</Button>
       </Stack>
       { view === 'table' && (<PaginationTable columns={columns} rows={data} />)}
       { view === 'barChart' && (<BarChart rows={coldata} columns={chartColumns} argumentField={'ZipCode'} />)}
+      {
+        (view === 'Pattern') && (
+          <><h1></h1><MapContainer center={{ lat: 41.8781, lng: -87.6298 }} zoom={14} positions={heatMapData} />
+          </>)
+      }
     </>
   );
 }
