@@ -37,12 +37,12 @@ function Covid19 () {
   };
   const getCovidChartData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/ccvi', setTimeout(4000));
-    setData(data.data);
-    console.log(data);
-    const len = [data.data.length - 1];
-    const da = data.data[len][0];
-    // eslint-disable-next-line no-unused-vars
-    const mydate = new Date(da);
+    const temp = [];
+    for (let i = 0; i < data.data.length; i++) {
+      temp.push({ date: data.data[i][0], Count: data.data[i][1] });
+    }
+    setData(temp);
+    console.log('temp');
   };
 
   useEffect(() => {
@@ -60,13 +60,13 @@ function Covid19 () {
   return (
     <>
       <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
-        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}}>Home</Button></Link>
-        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('table'); }}>Show Table</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('barChart'); }}>Covid Bar Chart</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('map'); }}>Emergency Loan Map</Button>
+        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} color="primary">Home</Button></Link>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('table'); }}>Show Table</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('barChart'); }}>Covid Bar Chart</Button>
+        {/* <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Emergency Loan Map</Button> */}
       </Stack>
       { view === 'table' && (<PaginationTable columns={columns} rows={data} />)}
-      { view === 'barChart' && (<BarChart rows={data} columns={chartColumns} argumentField={'ZipCode'} />)}
+      { view === 'barChart' && (<BarChart rows={data} columns={chartColumns} argumentField={'date'} />)}
       {/* { view === 'map' && (<PermitMapContainer />)} */}
     </>
     // <Grid container spacing={2}>

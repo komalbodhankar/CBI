@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BasicTable from './table/table';
-import { Grid } from '@mui/material';
-import MapContainer from './maps/HeatMap';
+import { Link } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import PaginationTable from './table/pagination_table';
+import BarChart from './charts/BarChart';
 
 function Covid19Zip () {
   const [data, setData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [coldata, setColData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [heatMapData, setheatMapData] = useState([]);
+  const [view, setView] = useState('table');
+  const columns = ['Id', 'Zip Code', 'Tests', 'Percent - Tested Positive', 'Deaths', 'latitude', 'longitude', 'CreatedAt', 'UpdatedAt'];
+
+  const chartColumns = [
+    { value: 'Percent', name: 'Percent - Tested Positive' }
+  ];
 
   const getData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/covid19Zip', setTimeout(4000));
@@ -17,24 +28,44 @@ function Covid19Zip () {
       }
       temp.push({ lat: parseFloat(data.data[i][5]), lng: parseFloat(data.data[i][6]) });
     }
-    debugger; // eslint-disable-line no-debugger
     setheatMapData(temp);
     setData(data.data);
   };
 
+  const getColumnData = async () => {
+    const coldata = await axios.get('http://127.0.0.1:5000/covid19columns', setTimeout(4000));
+    setColData(coldata.data);
+    for (let i = 0; i < coldata.data.length; i++) {
+      if (coldata.data[i].ZipCode === '60603') {
+        coldata.data[i].ZipCode = '60638';
+      }
+    }
+    console.log(coldata);
+  };
   useEffect(() => {
     getData();
+    getColumnData();
   }, []);
 
+  useEffect(() => {
+    if (view === 'table') {
+      getData();
+    } else if (view === 'barChart') {
+      getColumnData();
+    }
+  }, [view]);
+
   return (
-    <Grid container spacing={2}>
-      <Grid item={true} xs={6}>
-        <BasicTable columns={['Id', 'Zip Code', 'Tests', 'Percent - Tested Positive', 'Deaths', 'latitude', 'longitude', 'CreatedAt', 'UpdatedAt']} rows={data} />
-      </Grid>
-      <Grid item={true} xs={6}>
-        <MapContainer center={{ lat: 41.8781, lng: -87.6298 }} zoom={14} positions={heatMapData} />
-      </Grid>
-    </Grid>
+    <>
+      <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
+        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} color="primary">Home</Button></Link>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('table'); }}>Show Table</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('barChart'); }}>Covid-19 Chart</Button>
+        {/* <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Emergency Loan Map</Button> */}
+      </Stack>
+      { view === 'table' && (<PaginationTable columns={columns} rows={data} />)}
+      { view === 'barChart' && (<BarChart rows={coldata} columns={chartColumns} argumentField={'ZipCode'} />)}
+    </>
   );
 }
 

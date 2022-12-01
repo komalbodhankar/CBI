@@ -8,7 +8,7 @@ import PieChart, {
   Export
 } from 'devextreme-react/pie-chart';
 
-const Pie = ({ va,header }) => {
+const Pie = ({ va, header }) => {
   const pointClickHandler = (e) => {
     this.toggleVisibility(e.target);
   };
