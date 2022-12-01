@@ -42,7 +42,7 @@ function App () {
                 Chicago Business Intelligence
                 </Typography>
                 {
-                  (localStorage.getItem('login') == 'true') &&
+                  (localStorage.getItem('login') === 'true') &&
                   <Button color="inherit" href = "/signIn">Login</Button>
                 }
               </Toolbar>
