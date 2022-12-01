@@ -38,8 +38,8 @@ function App () {
           >
             <AppBar position="static">
               <Toolbar>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                CBI
+                <Typography variant="h6" component="div" color = "success" sx={{ flexGrow: 1 }}>
+                Chicago Business Intelligence
                 </Typography>
                 <Button color="inherit" href = "/signIn">Login</Button>
               </Toolbar>

@@ -191,8 +191,17 @@ def get_covid19_daily_data():
     return jsonify(data)
 
 
+@app.route('/covid19columns', methods=['GET'])
+def get_covid19_weekly_data_col():
+    cursor.execute("select \"ZIPCode\",count(\"ZIPCode\") from covid19 where \"ZIPCode\"='60666' or \"ZIPCode\"='60603' group by \"ZIPCode\";")
+    data = cursor.fetchall()
+    df = pd.DataFrame(data)
+    df.columns=['ZipCode', 'Percent']
+    df_final = df.to_dict('records')
+    return jsonify(df_final)
+
 @app.route('/covid19Zip', methods=['GET'])
 def get_covid19_weekly_data():
-    cursor.execute("SELECT * from covid19")
+    cursor.execute("select * from covid19 where \"ZIPCode\"='60666' or \"ZIPCode\"='60603';")
     data = cursor.fetchall()
     return jsonify(data)
