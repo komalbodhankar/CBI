@@ -60,10 +60,10 @@ function TaxiTrips () {
   return (
 <>
 <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Pattern'); }}>Traffic Patterns</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('PickUp'); }}>Most Pickup Spots</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Dropoffs'); }}>Most Dropoff Spots</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Trips'); }}>Taxi Trips</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('Pattern'); }}>Traffic Patterns</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('PickUp'); }}>Most Pickup Spots</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('Dropoffs'); }}>Most Dropoff Spots</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('Trips'); }}>Taxi Trips</Button>
 </Stack>
 { 
 (view === 'Pattern') && (

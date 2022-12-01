@@ -83,9 +83,9 @@ function CCVI () {
   return (
     <>
           <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Cases'); }}>Covid Cases</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Deaths'); }}>Covid Deaths</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Forecast'); }}>Forecast</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('Cases'); }}>Covid Cases</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('Deaths'); }}>Covid Deaths</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('Forecast'); }}>Forecast</Button>
       </Stack>
       { (view === 'Cases'||view === 'Deaths') && (<>
     <label>Date:</label><DatePicker selected={startDate} minDate={minDate} onChange={(date:Date) => setPieChart(date)} />

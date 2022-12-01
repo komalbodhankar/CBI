@@ -51,10 +51,10 @@ function UnEmployment () {
   return (
     <>
       <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
-        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} color="primary">Home</Button></Link>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Permit Waiver Map</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('unemp-table'); }}>UnEmploymentRate Table</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('poverty-table'); }}>PovertyRate Table</Button>
+        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}}>Home</Button></Link>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('map'); }}>Permit Waiver Map</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('unemp-table'); }}>UnEmploymentRate Table</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} style={{backgroundColor: "#21b6ae"}} onClick={() => { setView('poverty-table'); }}>PovertyRate Table</Button>
       </Stack>
       { view === 'unemp-table' && (<PaginationTable columns={unempColumns} rows={unemp} />)}
       { view === 'poverty-table' && (<PaginationTable columns={povertyColumns} rows={data} />)}
