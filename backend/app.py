@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, redirect, jsonify
 import psycopg2
 from flask_cors import CORS
 import googlemaps
@@ -31,7 +31,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # logging.getLogger('flask_cors').level = logging.DEBUG
 CORS_ALLOW_ORIGINS = ["http://127.0.0.1:5000"]
 
-
+@app.route('/', defaults={'path': '/'}) 
 @app.route('/buildingPermit', methods=['GET'])
 def get_permits_data():
     cursor.execute(

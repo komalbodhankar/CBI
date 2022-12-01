@@ -15,37 +15,37 @@ export const mainListItems = (
   <React.Fragment>
     <ListItemButton href='/buildingPermit'>
       <ListItemIcon>
-        <DomainAddIcon sx= {{ color: 'white' }}/>
+        <DomainAddIcon sx= {{ px: [1], color: 'white' }}/>
       </ListItemIcon>
       <ListItemText primary="Building Permits" />
     </ListItemButton>
     <ListItemButton href='/unEmployment'>
       <ListItemIcon>
-        <NoBackpackIcon sx= {{ color: 'white' }}/>
+        <NoBackpackIcon sx= {{ px: [1], color: 'white' }}/>
       </ListItemIcon>
       <ListItemText primary="UnEmployment" />
     </ListItemButton>
     <ListItemButton href='/ccvi'>
       <ListItemIcon>
-        <CoronavirusIcon sx= {{ color: 'white' }}/>
+        <CoronavirusIcon sx= {{ px: [1], color: 'white' }}/>
       </ListItemIcon>
       <ListItemText primary="CCVI" />
     </ListItemButton>
     <ListItemButton href='/taxiTrips'>
       <ListItemIcon>
-        <LocalTaxiIcon sx= {{ color: 'white' }}/>
+        <LocalTaxiIcon sx= {{ px: [1], color: 'white' }}/>
       </ListItemIcon>
       <ListItemText primary="Taxi Trips" />
     </ListItemButton>
     <ListItemButton href='/covid19'>
       <ListItemIcon>
-        <CoronavirusIcon sx= {{ color: 'white' }}/>
+        <CoronavirusIcon sx= {{ px: [1], color: 'white' }}/>
       </ListItemIcon>
       <ListItemText primary="Covid-19-Total" />
     </ListItemButton>
     <ListItemButton href='/covid19Zip'>
       <ListItemIcon>
-        <UpdateIcon sx= {{ color: 'white' }}/>
+        <UpdateIcon sx= {{ px: [1], color: 'white' }}/>
       </ListItemIcon>
       <ListItemText primary="Covid-19-Zip" />
     </ListItemButton>

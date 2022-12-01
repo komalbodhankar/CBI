@@ -8,12 +8,13 @@ import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import PaginationTable from '../table/pagination_table';
-// import MapContainer from './Maps';
+import MapContainer from './Maps';
+import { Link } from '@mui/material';
 
 function UnEmployment () {
   const [data, setPoverty] = useState([]);
   const [unemp, setUnemp] = useState([]);
-  const [view, setView] = useState('unemp-table');
+  const [view, setView] = useState('map');
   const unempColumns = ['Area Code', 'Community Area', 'UnEmployment(%)'];
   const povertyColumns = ['Area Code', 'Community Area', 'Poverty(%)'];
   // const permitMapPovertyColumns = [''];
@@ -50,12 +51,14 @@ function UnEmployment () {
   return (
     <>
       <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
+        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} color="primary">Home</Button></Link>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Permit Waiver Map</Button>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('unemp-table'); }}>UnEmploymentRate Table</Button>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('poverty-table'); }}>PovertyRate Table</Button>
-        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Permit Waiver Map</Button>
       </Stack>
       { view === 'unemp-table' && (<PaginationTable columns={unempColumns} rows={unemp} />)}
       { view === 'poverty-table' && (<PaginationTable columns={povertyColumns} rows={data} />)}
+      { view === 'map' && (<MapContainer />)}
     </>
     // <Grid container spacing={2}>
     //   <Grid item={true} xs={6}>

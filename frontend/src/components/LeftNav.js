@@ -29,7 +29,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen
         }),
-        width: theme.spacing(7),
+        width: theme.spacing(2),
         [theme.breakpoints.up('sm')]: {
           width: theme.spacing(9)
         }
@@ -46,7 +46,7 @@ const LeftNav = ({ open, toggleDrawer }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          px: [1]
+          px: [2]
         }}
       >
         <IconButton onClick={toggleDrawer}>
@@ -56,7 +56,7 @@ const LeftNav = ({ open, toggleDrawer }) => {
       <Divider />
       <List component="nav">
         {mainListItems}
-        <Divider sx={{ my: 1 }} />
+        <Divider sx={{ my: 0 }} />
         {secondaryListItems}
       </List>
     </Drawer>
