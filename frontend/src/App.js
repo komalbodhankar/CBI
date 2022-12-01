@@ -36,12 +36,15 @@ function App () {
               overflow: 'auto'
             }}
           >
-            <AppBar position="static">
+            <AppBar position="static" style={{ background: '#004d40' }}>
               <Toolbar>
-                <Typography variant="h6" component="div" color = "success" sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Chicago Business Intelligence
                 </Typography>
-                <Button color="inherit" href = "/signIn">Login</Button>
+                {
+                  (localStorage.getItem('login') == 'true') &&
+                  <Button color="inherit" href = "/signIn">Login</Button>
+                }
               </Toolbar>
             </AppBar>
 

@@ -3,8 +3,8 @@ import axios from 'axios';
 import Pie from './charts/PieChart';
 import LineChart from './charts/LineChart';
 import DatePicker from 'react-datepicker';
-// import Stack from '@mui/material/Stack';
-// import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import 'react-datepicker/dist/react-datepicker.css';
 const chartArgumentField = 'date';
 const chartColumns = [
@@ -16,7 +16,6 @@ function CCVI () {
   const [data, setData] = useState([]);
   const [rows, setRows] = useState([]);
   const [covidCases, setCovidCases] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [covidDeaths, setCovidDeaths] = useState([]);
   const [seed, setSeed] = useState(1);
   // const [view, setView] = useState('Cases');
@@ -24,6 +23,7 @@ function CCVI () {
     const data = await axios.get('http://127.0.0.1:5000/ccvi', setTimeout(4000));
     setData(data.data);
     const temp = [];
+    debugger;
 
     const len = [data.data.length - 1];
     const da = data.data[len][0];
@@ -49,6 +49,7 @@ function CCVI () {
   };
   const getForecastData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/forecastCovid19', setTimeout(4000));
+    debugger;
     setRows(data.data);
   };
   useEffect(() => {
@@ -80,9 +81,17 @@ function CCVI () {
   };
   return (
     <>
-      <label>Date:</label><DatePicker selected={startDate} minDate={minDate} onChange={(date = Date) => setPieChart(date)} />
-      <Pie key={seed} va={covidCases}></Pie>
-      <LineChart reportType={'forecasted_data'} rows={rows} columns={chartColumns} argumentField={chartArgumentField}/>
+      <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Cases'); }}>Covid Cases</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Deaths'); }}>Covid Deaths</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Forecast'); }}>Forecast</Button>
+      </Stack>
+      { (view === 'Cases' || view === 'Deaths') && (<>
+        <label>Date:</label><DatePicker selected={startDate} minDate={minDate} onChange={(date = Date) => setPieChart(date)} />
+      </>)}
+      { (view === 'Cases') && (<><Pie header={'Covid Cases And Ethnicities'} va={covidCases}></Pie></>)}
+      { (view === 'Deaths') && (<><Pie header={'Covid Deaths And Ethnicities'} va={covidDeaths}></Pie></>)}
+      { (view === 'Forecast') && (<><LineChart reportType={'forecasted_data'} rows={rows} columns={chartColumns} argumentField={chartArgumentField}/></>)}
     </>
   );
 }
