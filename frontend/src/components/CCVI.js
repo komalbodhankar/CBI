@@ -3,6 +3,8 @@ import axios from 'axios';
 import Pie from './charts/PieChart';
 import LineChart from './charts/LineChart';
 import DatePicker from "react-datepicker";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import "react-datepicker/dist/react-datepicker.css";
 const chartArgumentField = "date";
 const chartColumns = [
@@ -16,6 +18,7 @@ function CCVI () {
   const [covidCases, setCovidCases] = useState([]);
   const [covidDeaths, setCovidDeaths] = useState([]);
   const [seed, setSeed] = useState(1);
+  const [view, setView] = useState('Cases');
   const getData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/ccvi', setTimeout(4000));
     setData(data.data);
@@ -67,13 +70,29 @@ function CCVI () {
     temp.push({ Race: 'Other', Affected: parseInt(data[len-diffDays][8]) });
     temp.push({ Race: 'Unknown', Affected: parseInt(data[len-diffDays][9]) });
     setCovidCases(temp);  
+    var temp2 =[]
+    temp2.push({ Race: 'Latin', Affected: parseInt(data[len-diffDays][10]) });
+    temp2.push({ Race: 'Asian', Affected: parseInt(data[len-diffDays][11]) });
+    temp2.push({ Race: 'Black', Affected: parseInt(data[len-diffDays][12]) });
+    temp2.push({ Race: 'White', Affected: parseInt(data[len-diffDays][13]) });
+    temp2.push({ Race: 'Other', Affected: parseInt(data[len-diffDays][14]) });
+    temp2.push({ Race: 'Unknown', Affected: parseInt(data[len-diffDays][15]) });
+    setCovidDeaths(temp); 
     setSeed(Math.random());
   }
   return (
     <>
+          <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Cases'); }}>Covid Cases</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Deaths'); }}>Covid Deaths</Button>
+        <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('Forecast'); }}>Forecast</Button>
+      </Stack>
+      { (view === 'Cases'||view === 'Deaths') && (<>
     <label>Date:</label><DatePicker selected={startDate} minDate={minDate} onChange={(date:Date) => setPieChart(date)} />
-    <Pie key={seed} va={covidCases}></Pie>
-    <LineChart reportType={'forecasted_data'} rows={rows} columns={chartColumns} argumentField={chartArgumentField}/>
+    </>)}
+    { (view === 'Cases') && (<><Pie header={"Covid Cases And Ethnicities"} va={covidCases}></Pie></>)}
+    { (view === 'Deaths') && (<><Pie header={"Covid Deaths And Ethnicities"} va={covidDeaths}></Pie></>)}
+    { (view === 'Forecast') && (<><LineChart reportType={'forecasted_data'} rows={rows} columns={chartColumns} argumentField={chartArgumentField}/></>)}
     </>
   );
 }

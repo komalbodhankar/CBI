@@ -8,7 +8,7 @@ import PieChart, {
   Export,
 } from 'devextreme-react/pie-chart';
 
-const Pie = ({va}) => {
+const Pie = ({va,header}) => {
 
     const pointClickHandler = (e) => {
         this.toggleVisibility(e.target);
@@ -25,7 +25,7 @@ const Pie = ({va}) => {
         id="pie"
         dataSource={va}
         palette="Bright"
-        title="Covid Effected"
+        title={header}
         onPointClick={pointClickHandler}
         onLegendClick={legendClickHandler}
       >
