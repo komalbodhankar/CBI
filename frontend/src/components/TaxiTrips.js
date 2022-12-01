@@ -47,7 +47,6 @@ function TaxiTrips () {
       temp.push({ lat: parseFloat(data.data[i][17]), lng: parseFloat(data.data[i][18]) });
     }
     setheatMapData(temp);
-    debugger;
     let temp2 =[]
     for(let i=0;i<data.data.length;i++){
       temp2.push([new Date(data.data[i][2]).toLocaleDateString(),data.data[i][19],data.data[i][20],data.data[i][4]+" secs",data.data[i][5]+" mi",data.data[i][14]])

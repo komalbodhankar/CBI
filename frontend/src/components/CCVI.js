@@ -24,7 +24,6 @@ function CCVI () {
     const data = await axios.get('http://127.0.0.1:5000/ccvi', setTimeout(4000));
     setData(data.data);
     const temp = [];
-    debugger;
 
     const len = [data.data.length - 1];
     const da = data.data[len][0];
@@ -50,7 +49,6 @@ function CCVI () {
   };
   const getForecastData = async () => {
     const data = await axios.get('http://127.0.0.1:5000/forecastCovid19', setTimeout(4000));
-    debugger;
     setRows(data.data);
   };
   useEffect(() => {
