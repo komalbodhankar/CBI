@@ -8,6 +8,7 @@ import DomainAddIcon from '@mui/icons-material/DomainAdd';
 import NoBackpackIcon from '@mui/icons-material/NoBackpack';
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import UpdateIcon from '@mui/icons-material/Update';
+import PeopleIcon from '@mui/icons-material/People';
 // import AssignmentIcon from '@mui/icons-material/Assignment';
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
 
@@ -27,9 +28,9 @@ export const mainListItems = (
     </ListItemButton>
     <ListItemButton href='/ccvi'>
       <ListItemIcon>
-        <CoronavirusIcon sx= {{ px: [1], color: 'white' }}/>
+        <PeopleIcon sx= {{ px: [1], color: 'white' }}/>
       </ListItemIcon>
-      <ListItemText primary="CCVI" />
+      <ListItemText primary="Communities" />
     </ListItemButton>
     <ListItemButton href='/taxiTrips'>
       <ListItemIcon>
