@@ -42,7 +42,34 @@
     postgres=# \dt
     postgres=# select * from <relation_name>;
 ```
+# React Js
+1. Go to the front end folder, make sure that node package manager is installed.
+2. run npm install.
+3. All the libraries required will be installed using this command.
+4. To run the Application's front-end run: npm start.
 
-### PENDING TASKS
+# Python (Flask)
+ 1. Install Python version >= 3.7
+2. Install virtualenv package
+3. Execute below commands in terminal
+
+   ```
+   $ cd backend/
+   $ virtualenv .venv -p python3.8
+   $ source .venv/bin/activate
+   $ pip install -r requirements.txt
+   ```
+4. Execute below commands in terminal for non-debug mode
+
+   ```
+    $ flask --app app run
+   ```
+5. Execute below commands in terminal for debug mode
+
+   ```
+    $ flask --app app --debug run
+   ```
+
+# Docker 
 1. Add Covid-19, CCVI, TripData, Neighbourhood API changes 
 2. Automate this, by deploying on docker-compose
