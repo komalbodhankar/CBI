@@ -97,7 +97,16 @@ def get_emergency_loan_latlng():
         "= unemployment.\"areaCode\");")
     data = cursor.fetchall()
 
-
+@app.route('/taxiTripsMostPickups', methods=['GET'])
+def get_taxiTripsMostPickups_data():
+    cursor.execute('select "pzipcode", COUNT(pzipcode) as Count from public.taxitrips group by "pzipcode" order by Count desc limit 5;')
+    top5_pickup = cursor.fetchall()
+    return jsonify(top5_pickup)
+@app.route('/taxiTripsDropOffs', methods=['GET'])
+def get_taxiTripsMostDropOffs_data():
+    cursor.execute('select "dzipcode", COUNT(dzipcode) as Count from public.taxitrips group by "dzipcode" order by Count desc limit 5;')
+    top5_pickup = cursor.fetchall()
+    return jsonify(top5_pickup)
 @app.route('/unEmployment', methods=['GET'])
 def get_unemp_data():
     cursor.execute('select "areaCode", "areaName", "belowPoverty" from unemployment_data order by "belowPoverty" desc '
