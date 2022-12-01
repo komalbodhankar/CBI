@@ -91,7 +91,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function PaginationTable ({ columns, rows }) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(8);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -147,7 +147,7 @@ export default function PaginationTable ({ columns, rows }) {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[8, 16, 32, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[5, 15, 30, { label: 'All', value: -1 }]}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}

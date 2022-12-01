@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import BarChart from '../charts/BarChart';
 import PermitMapContainer from './PermitMap';
+import { Link } from '@mui/material';
+// import DashBoard from '../home/home';
 
 function BuildingPermit () {
   const [data, setData] = useState([]);
@@ -46,6 +48,7 @@ function BuildingPermit () {
   return (
     <>
       <Stack display="flex" justifyContent={'flex-end'} mb = {2} spacing={2} direction="row">
+        <Link href="/"><Button variant="contained" sx={{ fontSize: 10 }} color="primary">Home</Button></Link>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('table'); }}>Show Table</Button>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('barChart'); }}>Permit Count Chart</Button>
         <Button variant="contained" sx={{ fontSize: 10 }} color="primary" onClick={() => { setView('map'); }}>Emergency Loan Map</Button>

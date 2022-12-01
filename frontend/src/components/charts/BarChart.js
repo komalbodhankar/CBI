@@ -1,61 +1,61 @@
 import React from 'react';
 import {
-    Chart, Series, CommonSeriesSettings, Format, Legend, Export, Size, ArgumentAxis, ZoomAndPan, ScrollBar, Label
+  Chart, Series, CommonSeriesSettings, Format, Legend, Export, Size, ArgumentAxis, ZoomAndPan, ScrollBar, Label
 } from 'devextreme-react/chart';
-import { color } from '@mui/system';
+// import { color } from '@mui/system';
 import { useTheme } from '@mui/material';
 
-const BarChart = ({rows, columns, argumentField}) => {
-    const theme = useTheme();
+const BarChart = ({ rows, columns, argumentField }) => {
+  const theme = useTheme();
 
-    console.log('inside bar chart', rows);
+  console.log('inside bar chart', rows);
 
-    const onPointClick = (e) => {
-        e.target.select();
-    }
+  const onPointClick = (e) => {
+    e.target.select();
+  };
 
-    return (
-        <Chart id="chart"
-        title={"Bar Chart Data Presentation"}
-        dataSource={rows}
-        onPointClick={onPointClick}
+  return (
+    <Chart id="chart"
+      title={'Bar Chart Data Presentation'}
+      dataSource={rows}
+      onPointClick={onPointClick}
+    >
+      <CommonSeriesSettings
+        argumentField={argumentField}
+        type="bar"
+        hoverMode="allArgumentPoints"
+        selectionMode="allArgumentPoints"
+      >
+        <Label
+          visible={true}
         >
-            <CommonSeriesSettings
-            argumentField={argumentField}
-            type="bar"
-            hoverMode="allArgumentPoints"
-            selectionMode="allArgumentPoints"
-            >
-            <Label 
-                visible={true}
-            >
-                <Format type="fixedPoint" precision={0} />
-            </Label>
-            </CommonSeriesSettings>
-            {
-                columns.map((item) => 
-                <Series
-                    key={item.value}
-                    valueField={item.value}
-                    color={theme.palette.success.light}
-                    name={item.name} />
-                )
-            }
-            <Legend verticalAlignment="bottom" horizontalAlignment="center"></Legend>
-            <ArgumentAxis 
-                defaultVisualRange={{length: 100}}
-            >
-                <Label
-                    rotationAngle={45}
-                    displayMode="rotate"
-                />
-            </ArgumentAxis>
-            <ScrollBar visible={true} />
-            <ZoomAndPan argumentAxis="both"/>
-            <Size height={600}/>
-            <Export enabled={true} />
-        </Chart>
-    );
+          <Format type="fixedPoint" precision={0} />
+        </Label>
+      </CommonSeriesSettings>
+      {
+        columns.map((item) =>
+          <Series
+            key={item.value}
+            valueField={item.value}
+            color={theme.palette.success.light}
+            name={item.name} />
+        )
+      }
+      <Legend verticalAlignment="bottom" horizontalAlignment="center"></Legend>
+      <ArgumentAxis
+        defaultVisualRange={{ length: 100 }}
+      >
+        <Label
+          rotationAngle={45}
+          displayMode="rotate"
+        />
+      </ArgumentAxis>
+      <ScrollBar visible={true} />
+      <ZoomAndPan argumentAxis="both"/>
+      <Size height={600}/>
+      <Export enabled={true} />
+    </Chart>
+  );
 };
 
 export default BarChart;

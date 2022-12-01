@@ -72,7 +72,6 @@ const DashBoard = () => {
             variant="h2"
             align="center"
             color="primary.main"
-            gutterBottom
           >
                 Chicago Business Intelligence
           </Typography>
@@ -81,7 +80,7 @@ const DashBoard = () => {
           </Typography>
         </Container>
       </Box>
-      <Container sx={{ py: 8 }} maxWidth="lr">
+      <Container sx={{ py: 5 }} maxWidth="lr">
         <Grid container spacing={6}>
           {cards.map((card) => (
             <Grid item key={card.header} xs={12} sm={12} md={6}>
